@@ -1,0 +1,41 @@
+﻿@page "/matchwinners/{id:int}"
+@inject IHamsterService HamsterService
+
+@if(hamster == null)
+{
+    <span>@message</span>
+}
+else
+{
+    <div class="media">
+        <div class="media-img-wrapper mr-2">
+            <p>@hamster.Name</p>
+            <p>Age: @hamster.Age</p>
+            <p>Wins: @hamster.Wins</p>
+            <p>Defeats: @hamster.Defeats</p>
+            <p>Battles plated: @hamster.Games</p>
+        </div>
+    </div>
+}
+
+@code {
+    private Hamster? hamster = null;
+    private string message = string.Empty;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        message = "Getting hamster..";
+
+        var result = await HamsterService.GetHamster(Id);
+        if (!result.Success)
+        {
+            message = result.Message;
+        }
+        hamster = result.Data;
+    }
+
+    
+}
