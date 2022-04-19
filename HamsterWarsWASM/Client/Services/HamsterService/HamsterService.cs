@@ -1,5 +1,4 @@
-﻿
-namespace HamsterWarsWASM.Client.Services.HamsterService;
+﻿namespace HamsterWarsWASM.Client.Services.HamsterService;
 
 public class HamsterService : IHamsterService
 {
@@ -13,6 +12,7 @@ public class HamsterService : IHamsterService
     public List<Hamster> Hamsters { get; set; } = new List<Hamster>();
 
     public event Action Top5Hamsters;
+    public event Action HamstersChanged;
 
     public async Task<Hamster> CreateHamster(Hamster hamster)
     {
@@ -35,22 +35,17 @@ public class HamsterService : IHamsterService
         return result;
     }
 
-    public async Task GetHamsters(string? top5 = null)
+    public async Task GetHamsters()
     {
-        var result = top5 == null ?
+        var result =
             await _http.GetFromJsonAsync
-                <ServiceResponse<List<Hamster>>>("api/hamster") :
-            await _http.GetFromJsonAsync
-                <ServiceResponse<List<Hamster>>>("api/hamster/top5");
+                <ServiceResponse<List<Hamster>>>("api/hamster");
 
         if (result != null && result.Data != null) // "Deleted" hamster sorteras bort vid razor.page --bör ses över
         {
             Hamsters = result.Data;
         }
-
-        //Top5Hamsters.Invoke();
     }
-
     public async Task<Hamster> UpdateHamster(Hamster hamster)
     {
         var result = await _http.PutAsJsonAsync($"api/hamster", hamster);

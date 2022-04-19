@@ -43,8 +43,10 @@ public class HamsterService : IHamsterService
     public async Task<ServiceResponse<Hamster>> GetHamsterAsync(int hamsterId)
     {
         var response = new ServiceResponse<Hamster>();
-        var hamster = await _context.Hamsters.FindAsync(hamsterId);
-        if (hamster == null)
+        var hamster = await _context.Hamsters
+            .FindAsync(hamsterId);
+
+        if (hamster == null || hamster.Deleted == false) // TODO --Kolla om denna funktion fungerar korrekt
         {
             response.Success = false;
             response.Message = $"No hamster with this Id:{hamsterId}";
@@ -56,7 +58,9 @@ public class HamsterService : IHamsterService
     {
         var response = new ServiceResponse<List<Hamster>>
         {
-            Data = await _context.Hamsters.ToListAsync()
+            Data = await _context.Hamsters
+            .Where(x => x.Deleted == false)
+            .ToListAsync()
         };
         return response;
     }
@@ -89,9 +93,51 @@ public class HamsterService : IHamsterService
         dbHamster.FavFood = hamster.FavFood;
         dbHamster.Loves = hamster.Loves;
         dbHamster.ImgName = hamster.ImgName;
+        dbHamster.Wins = hamster.Wins;
+        dbHamster.Defeats = hamster.Defeats;
+        dbHamster.Games = hamster.Games;
+        dbHamster.Deleted = hamster.Deleted;
 
         await _context.SaveChangesAsync();
         return new ServiceResponse<Hamster> { Data = hamster };
 
+    }
+
+    public async Task<ServiceResponse<Hamster>> UpdateDefeatedResult(int hamsterId)
+    {
+        var defeatedHamster = await _context.Hamsters.FindAsync(hamsterId);
+        if (defeatedHamster == null)
+        {
+            return new ServiceResponse<Hamster>
+            {
+                Success = false,
+                Message = "Hamster not found."
+            };
+        }
+
+        defeatedHamster.Defeats +=
+        defeatedHamster.Games +=
+
+        await _context.SaveChangesAsync();
+        return new ServiceResponse<Hamster> { Data = defeatedHamster };
+    }
+
+    public async Task<ServiceResponse<Hamster>> UpdateWinningResult(int hamsterId)
+    {
+        var winningHamster = await _context.Hamsters.FindAsync(hamsterId);
+        if (winningHamster == null)
+        {
+            return new ServiceResponse<Hamster>
+            {
+                Success = false,
+                Message = "Hamster not found."
+            };
+        }
+
+        winningHamster.Wins +=
+        winningHamster.Games +=
+
+        await _context.SaveChangesAsync();
+        return new ServiceResponse<Hamster> { Data = winningHamster };
     }
 }
