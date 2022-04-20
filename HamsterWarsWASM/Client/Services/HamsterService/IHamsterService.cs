@@ -7,6 +7,7 @@ public interface IHamsterService
 
     List<Hamster> Hamsters { get; set; }
     Task GetHamsters();
+    Task Get2ShuffledHamsters();
     Task<ServiceResponse<Hamster>> GetHamster(int hamsterId);
 
     Task<Hamster> CreateHamster(Hamster hamster);

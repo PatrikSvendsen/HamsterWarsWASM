@@ -15,20 +15,40 @@ else
         Click here to add a new hamster
     </button>
 
-    <ul class="list-unstyled">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Loves</th>
+                <th>FavFood</th>
+                <th>Wins</th>
+                <th>Defeats</th>
+                <th>Games </th>
+            </tr>
+        </thead>
+        <tbody>
         @foreach (var hamster in HamsterService.Hamsters)
         {
             if (hamster.Deleted == false)
             {
-                <li class="media my-3">
-                    <div class="media-img-wrapper mr-2">
-                        <a href="/matchwinners/@hamster.Id">@hamster.Name</a>
-                    </div>
-                        <div class="btn btn-danger" @onclick="@(() => DeleteHamster(@hamster.Id))">Remove</div>
-                </li>
+                <tr>
+                    <td>@hamster.Name</td>
+                    <td>@hamster.Age</td>
+                    <td>@hamster.Loves</td>
+                    <td>@hamster.FavFood</td>
+                    <td>@hamster.Wins</td>
+                    <td>@hamster.Defeats</td>
+                    <td>@hamster.Games</td>
+                  <button class="btn btn-danger" @onclick="@(() => DeleteHamster(@hamster.Id))" >
+                      Remove
+                  </button>
+              </tr>
             }
         }
-    </ul>
+        </tbody>
+    </table>
+
 }
 
 @code {

@@ -7,6 +7,7 @@ namespace DataAccess.EFCore.Services.HamsterService;
 public class HamsterService : IHamsterService
 {
     private readonly DataContext _context;
+    private static readonly Random rnd = new Random();
 
     public HamsterService(DataContext context)
     {
@@ -69,8 +70,8 @@ public class HamsterService : IHamsterService
         var response = new ServiceResponse<List<Hamster>>
         {
             Data = await _context.Hamsters
-            .OrderByDescending(x => x.Wins)
-            .Take(5)
+            //.OrderByDescending(x => x.Wins)
+            .Take(2)
             .ToListAsync()
         };
         return response;
@@ -140,4 +141,31 @@ public class HamsterService : IHamsterService
         await _context.SaveChangesAsync();
         return new ServiceResponse<Hamster> { Data = winningHamster };
     }
+
+    public async Task<ServiceResponse<List<Hamster>>> ShuffleRandomHamsters()
+    {
+        int n = _context.Hamsters.Count();
+        var list = await _context.Hamsters.ToListAsync();
+
+        // Plockat från Stackoverflow/google --https://blog.codinghorror.com/shuffling/
+        while (n > 1)
+        {
+            int k = (rnd.Next(0, n) % n);
+            n--;
+            Hamster value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+
+        var response = new ServiceResponse<List<Hamster>>
+        {
+            Data = list
+            .Where(x => x.Deleted == false)
+            .Take(2)
+            .ToList()
+        };
+
+        return response;
+    }
 }
+
