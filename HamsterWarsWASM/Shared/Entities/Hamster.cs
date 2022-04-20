@@ -17,7 +17,10 @@ public class Hamster
     public int Defeats { get; set; } = 0;
     public int Games { get; set; } = 0;
     public bool Deleted { get; set; } = false;
+    [NotMapped]
     public bool IsNew { get; set; } = false;
+    [NotMapped]
+    public bool Editing { get; set; } = false;
 
 
     public int? MatchId { get; set; }

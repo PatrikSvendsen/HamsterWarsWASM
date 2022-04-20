@@ -1,110 +1,128 @@
 ﻿@page "/create"
+@page "/edit/{id:int}"
 @inject IHamsterService HamsterService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
+@if (loading)
+{
+    <span>@message</span>
+}
+else
+{
+    @if (hamster.Editing)
+    {
+        <h3>Edit "@hamster.Name"</h3>
+    }
+    else if (hamster.IsNew)
+    {
+        <h3>Add a new Hamster</h3>
+    }
 
-@*<EditForm Model="hamster" OnValidSubmit="AddHamster">
-    <DataAnnotationsValidator></DataAnnotationsValidator>
-<form>
-    <div class="mb-0">
-        <label for="name">Name</label>
-        <InputText id="name" @bind-value="hamster.Name" class="form-control"></InputText>
-    </div>
-    <div class="mb-0">
-        <label for="imgName">ImgUrl</label>
-        <InputText id="imgName" @bind-value="hamster.ImgName" class="form-control"></InputText>
-    </div>
-    <div class="mb-0">
-        <img src="@hamster.ImgName" />
-    </div>
-    <div class="mb-0">
-        <label for="age">Age</label>
-        <InputText id="age" @bind-value="hamster.Age" class="form-control"></InputText>
-    </div>
-    <div class="mb-0">
-        <label for="favFood">FavFood</label>
-        <InputText id="favFood" @bind-value="hamster.FavFood" class="form-control"></InputText>
-    </div>
-    <div class="mb-0">
-        <label for="loves">Loves</label>
-        <InputText id="loves" @bind-value="hamster.Loves" class="form-control"></InputText>
-    </div>
-    <button type="submit" class="btn btn-primary float-end">@btnText</button>
-    <ValidationSummary></ValidationSummary>
-</form>
-</EditForm>*@
-
-<form>
-    <div class="form-group">
-        <label for="@hamster.Name">Name</label>
-        <input @bind-value="@hamster.Name" type="text" class="form-control">
-    </div>
-    <div class="form-group">
-        <label for="@hamster.Age">Age</label>
-        <select @bind="@hamster.Age" class="form-control">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            @*Dem Blir typ aldrig äldre än 5 ändå*@
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="@hamster.FavFood">Favourite Food</label>
-        <input @bind-value="@hamster.FavFood" type="text" class="form-control">
-    </div>
-    <div class="form-group">
-        <label for="@hamster.Loves">Loves</label>
-        <input @bind-value="@hamster.Loves" type="text" class="form-control">
-    </div>
-
-    <label for="@hamster.ImgName">Image Url</label>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">/images/hamsters/hamster-</span>
+    <EditForm Model="hamster" OnValidSubmit="AddOrEditHamster">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <div class="mb-0">
+            <label for="name">Name</label>
+            <InputText id="name" @bind-Value="hamster.Name" class="form-control"></InputText>
         </div>
-        <div class="input-group-append">
-            <label class="input-group-text">.jpg</label>
+        <div class="mb-0">
+            <label for="imgName">Img Url</label>
+            <InputText id="imgName" @bind-Value="hamster.ImgName" class="form-control"></InputText>
         </div>
-    </div>
-    <button @onclick="AddHamster" type="submit" class="btn btn-primary">Collect your new born here...</button>
-</form>
+        <div class="mb-0">
+            <img src="@hamster.ImgName" />
+        </div>
+        <div class="mb-0">
+            <label for="age">Age</label>
+            <InputSelect id="age" @bind-Value="hamster.Age" class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </InputSelect>
+        </div>
+        <div class="mb-0">
+            <label for="favFood">FavFood</label>
+            <InputText id="favFood" @bind-Value="hamster.FavFood" class="form-control"></InputText>
+        </div>
+        <div class="mb-0">
+            <label for="loves">Loves</label>
+            <InputText id="loves" @bind-Value="hamster.Loves" class="form-control"></InputText>
+        </div>
+        <div class="col">
+        </div>
+        <button type="submit" class="btn btn-primary float-end">@btnText</button>
+        <ValidationSummary></ValidationSummary>
+    </EditForm>
+    @if (!hamster.IsNew)
+    {
+        <HomeButton type="button" class="btn btn-danger float-start" @onclick="DeleteHamster">
+            Delete Hamster
+        </HomeButton>
+    }
+}
 
 @code {
-    //[Parameter]
-    //public int Id { get; set; }
 
-    //string btnText = "";
+    [Parameter]
+    public int Id { get; set; }
 
-    public Hamster hamster { get; set; } = new Hamster();
+    Hamster hamster = new Hamster();
+    bool loading = true;
+    string btnText = "";
+    string message = "Loading...";
 
     protected override async Task OnInitializedAsync()
     {
         await HamsterService.GetHamsters();
     }
-
-    //protected override async Task OnParametersSetAsync()
-    //{
-    //    if(Id == 0)
-    //    {
-    //        hamster = new Hamster { IsNew = true };
-    //        btnText = "Collect new born...";
-    //    }
-    //    //else
-    //    //{
-    //    //    Hamster dbHamster = (await HamsterService.GetHamster(Id)).Data;
-    //    //    if(dbHamster == null)
-    //    //    {
-    //    //        message = $"Hamster with Id '{Id}' does not exist";
-    //    //    }
-    //    //}
-    //    //loading = false;
-    //}
-
-    public void AddHamster()  // TODO Fungerar om man inte använder async metod! Varför?
+    protected override async Task OnParametersSetAsync()
     {
-        HamsterService.CreateHamster(hamster);
-        NavigationManager.NavigateTo("/gallery");               // TODO Behöver fixas så att listan i gallry laddas om
+        if (Id == 0)
+        {
+            hamster = new Hamster { IsNew = true };
+            btnText = "Add Hamster";
+        }
+        else
+        {
+            Hamster dbHamster = (await HamsterService.GetHamster(Id)).Data;
+            if (dbHamster == null)
+            {
+                message = $"Hamster with Id '{Id}' does not exist";
+                return;
+            }
+            hamster = dbHamster;
+            hamster.Editing = true;
+            btnText = "Edit Hamster";
+        }
+        loading = false;
+    }
+
+    async void AddOrEditHamster()
+    {
+        if (hamster.IsNew)
+        {
+            var result = await HamsterService.CreateHamster(hamster);
+            NavigationManager.NavigateTo($"edit/{result.Id}");
+        }
+        else
+        {
+            hamster.IsNew = false;
+            hamster = await HamsterService.UpdateHamster(hamster);
+            NavigationManager.NavigateTo($"", true);
+        }
+    }
+
+    async void DeleteHamster()
+    {
+        bool confirmed = await JSRuntime.InvokeAsync<bool>
+        ("confirm", $"Do you really want to delete this hamster '{hamster.Id}'?");
+        if (confirmed)
+        {
+            await HamsterService.DeleteHamster(hamster);
+            NavigationManager.NavigateTo("/gallery");
+
+        }
     }
 }

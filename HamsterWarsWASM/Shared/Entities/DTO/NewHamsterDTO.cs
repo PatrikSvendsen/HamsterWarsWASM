@@ -1,6 +1,6 @@
 ﻿namespace HamsterWarsWASM.Shared.Entities.DTO;
 
-public  class NewHamsterDTO
+public class NewHamsterDTO
 {
     public int HamsterId { get; set; }
     public string Name { get; set; } = string.Empty;

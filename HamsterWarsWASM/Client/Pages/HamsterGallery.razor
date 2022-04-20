@@ -12,9 +12,10 @@
 else
 {
     <button class="btn btn-primary" @onclick="CreateHamster">
+        <i class="oi oi-plus"></i>
         Click here to add a new hamster
     </button>
-
+    
     <table class="table">
         <thead>
             <tr>
@@ -40,15 +41,14 @@ else
                     <td>@hamster.Wins</td>
                     <td>@hamster.Defeats</td>
                     <td>@hamster.Games</td>
-                  <button class="btn btn-danger" @onclick="@(() => DeleteHamster(@hamster.Id))" >
-                      Remove
+                  <button class="btn btn-warning" @onclick="@(() => EditHamster(@hamster.Id))" >
+                      Edit
                   </button>
               </tr>
             }
         }
         </tbody>
     </table>
-
 }
 
 @code {
@@ -63,18 +63,9 @@ else
         NavigationManager.NavigateTo("/create");
     }
 
-    async void DeleteHamster(int hamsterId)
+    void EditHamster(int hamsterId)
     {
-        var hamster = HamsterService.Hamsters.Find(x => x.Id == hamsterId);
-        if(hamster == null)
-        {
-            return;
-        }
-        else
-        {
-            await HamsterService.DeleteHamster(hamster);
-            HamsterService.HamstersChanged += StateHasChanged;
-        }
+        NavigationManager.NavigateTo($"edit/{hamsterId}");
     }
 
     public void Dispose()
