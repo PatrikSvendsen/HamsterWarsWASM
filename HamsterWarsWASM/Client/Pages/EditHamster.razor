@@ -104,7 +104,7 @@ else
         if (hamster.IsNew)
         {
             var result = await HamsterService.CreateHamster(hamster);
-            NavigationManager.NavigateTo($"edit/{result.Id}");
+            NavigationManager.NavigateTo($"hamster/{result.Id}");
         }
         else
         {

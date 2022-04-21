@@ -5,7 +5,7 @@
 @implements IDisposable
 
 
-@if(HamsterService.Hamsters == null || HamsterService.Hamsters.Count == 0)
+@if (HamsterService.Hamsters == null || HamsterService.Hamsters.Count == 0)
 {
     <span>Loading cute hamsters plz wait......</span>
 }
@@ -15,7 +15,7 @@ else
         <i class="oi oi-plus"></i>
         Click here to add a new hamster
     </button>
-    
+
     <table class="table">
         <thead>
             <tr>
@@ -29,24 +29,31 @@ else
             </tr>
         </thead>
         <tbody>
-        @foreach (var hamster in HamsterService.Hamsters)
-        {
-            if (hamster.Deleted == false)
+            @foreach (var hamster in HamsterService.Hamsters)
             {
-                <tr>
-                    <td>@hamster.Name</td>
-                    <td>@hamster.Age</td>
-                    <td>@hamster.Loves</td>
-                    <td>@hamster.FavFood</td>
-                    <td>@hamster.Wins</td>
-                    <td>@hamster.Defeats</td>
-                    <td>@hamster.Games</td>
-                  <button class="btn btn-warning" @onclick="@(() => EditHamster(@hamster.Id))" >
-                      Edit
-                  </button>
-              </tr>
+                if (hamster.Deleted == false)
+                {
+                    <PanelComponent Heading="@hamster.Name">
+                        <td>@hamster.Age</td>
+                        <td>@hamster.Loves</td>
+                        <td>@hamster.FavFood</td>
+                        <td>@hamster.Wins</td>
+                        <td>@hamster.Defeats</td>
+                        <td>@hamster.Games</td>
+                    </PanelComponent>
+                    <tr>
+@*                        <td>@hamster.Age</td>
+                        <td>@hamster.Loves</td>
+                        <td>@hamster.FavFood</td>
+                        <td>@hamster.Wins</td>
+                        <td>@hamster.Defeats</td>
+                        <td>@hamster.Games</td>*@
+                        <button class="btn btn-warning" @onclick="@(() => EditHamster(@hamster.Id))">
+                            Edit
+                        </button>
+                    </tr>
+                }
             }
-        }
         </tbody>
     </table>
 }

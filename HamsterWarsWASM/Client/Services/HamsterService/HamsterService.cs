@@ -55,6 +55,7 @@ public class HamsterService : IHamsterService
             Hamsters = result.Data;
         }
     }
+
     public async Task<Hamster> UpdateHamster(Hamster hamster)
     {
         var result = await _http.PutAsJsonAsync($"api/hamster", hamster);

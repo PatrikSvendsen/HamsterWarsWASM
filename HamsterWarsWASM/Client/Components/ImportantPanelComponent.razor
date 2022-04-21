@@ -1,0 +1,11 @@
+﻿<PanelComponent Heading="@Heading" HeadingClass="text-white bg-danger">
+    @ChildContent
+</PanelComponent>
+
+@code{
+    [Parameter]
+    public string Heading { get; set; } = string.Empty;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

@@ -15,7 +15,7 @@ public static class ServiceExtensions
         //-----------|  DbContext
         //-----------|  Repositories
         //-----------|  Services
-        services.AddTransient<IHamsterService, HamsterService>();
-        services.AddTransient<IMatchService, MatchService>();
+        services.AddScoped<IHamsterService, HamsterService>();
+        services.AddScoped<IMatchService, MatchService>();
     }
 }
