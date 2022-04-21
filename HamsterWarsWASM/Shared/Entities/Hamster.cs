@@ -8,9 +8,13 @@ public class Hamster
     [Key]
     [Column("HamsterId")]
     public int Id { get; set; }
+    [Required(ErrorMessage = "This field is required")]
+    [MaxLength(20)]
     public string Name { get; set; } = string.Empty;
     public int Age { get; set; }
+    [MaxLength(20)]
     public string FavFood { get; set; } = string.Empty;
+    [MaxLength(20)]
     public string Loves { get; set; } = string.Empty;
     public string ImgName { get; set; } = string.Empty;
     public int Wins { get; set; } = 0;

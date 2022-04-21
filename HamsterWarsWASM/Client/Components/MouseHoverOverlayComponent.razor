@@ -1,0 +1,26 @@
+﻿
+@if (overlayVisible)
+{
+    <div class="overlay">
+        <div class="text">Edit</div>
+    </div>
+}
+
+<div @onmouseover="ShowOverlay" @onmouseout="HideOverlay">
+
+</div>
+
+@code {
+
+    public bool overlayVisible { get; set; } // = false;
+
+    void ShowOverlay()
+    {
+        overlayVisible = true;
+    }
+
+    void HideOverlay()
+    {
+        overlayVisible = false;
+    }
+}

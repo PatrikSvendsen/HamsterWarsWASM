@@ -23,11 +23,11 @@ else
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <div class="mb-0">
             <label for="name">Name</label>
-            <InputText id="name" @bind-Value="hamster.Name" class="form-control"></InputText>
+            <InputText id="name" @bind-Value="hamster.Name" class="form-control" placeholder="Enter hamster name here"></InputText>
         </div>
         <div class="mb-0">
             <label for="imgName">Img Url</label>
-            <InputText id="imgName" @bind-Value="hamster.ImgName" class="form-control"></InputText>
+            <InputText id="imgName" @bind-Value="hamster.ImgName" class="form-control" placeholder="Put imgurl here"></InputText>
         </div>
         <div class="mb-0">
             <img src="@hamster.ImgName" />
@@ -44,17 +44,18 @@ else
         </div>
         <div class="mb-0">
             <label for="favFood">FavFood</label>
-            <InputText id="favFood" @bind-Value="hamster.FavFood" class="form-control"></InputText>
+            <InputText id="favFood" @bind-Value="hamster.FavFood" class="form-control" placeholder="Favourite hamster food"></InputText>
         </div>
         <div class="mb-0">
             <label for="loves">Loves</label>
-            <InputText id="loves" @bind-Value="hamster.Loves" class="form-control"></InputText>
+            <InputText id="loves" @bind-Value="hamster.Loves" class="form-control" placeholder="What does this hamster love the most?"></InputText>
         </div>
         <div class="col">
         </div>
         <button type="submit" class="btn btn-primary float-end">@btnText</button>
         <ValidationSummary></ValidationSummary>
     </EditForm>
+
     @if (!hamster.IsNew)
     {
         <HomeButton type="button" class="btn btn-danger float-start" @onclick="DeleteHamster">
