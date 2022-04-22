@@ -11,6 +11,24 @@ public class MatchService : IMatchService
 
     public List<Match> Matches { get; set; }
 
+    public async Task<Match> CreateMatch(Match match)
+    {
+        var result = await _http.PostAsJsonAsync("api/match", match);
+        var newMatch = (await result.Content
+            .ReadFromJsonAsync<ServiceResponse<Match>>()).Data;
+        return newMatch;
+    }
+
+    public async Task DeleteMatch(Match match)
+    {
+        var result = await _http.DeleteAsync($"api/match/{match.Id}");
+    }
+
+    public async Task<ServiceResponse<Match>> GetMatch(int matchId)
+    {
+        var result = await _http.GetFromJsonAsync<ServiceResponse<Match>>($"api/match/{matchId}");
+        return result;
+    }
 
     public async Task GetMatches()
     {

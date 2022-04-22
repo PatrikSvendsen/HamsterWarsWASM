@@ -10,6 +10,5 @@ public class Match
     public int Id { get; set; }
     public int WinnerId { get; set; }
     public int LoserId { get; set; }
-    public int Games { get; set; } = 0;
-
+    public bool Deleted { get; set; } = false;
 }

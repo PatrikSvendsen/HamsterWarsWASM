@@ -27,6 +27,5 @@ public class Hamster
     public bool Editing { get; set; } = false;
 
 
-    public int? MatchId { get; set; }
     public ICollection<Match>? Match { get; set; }
 }

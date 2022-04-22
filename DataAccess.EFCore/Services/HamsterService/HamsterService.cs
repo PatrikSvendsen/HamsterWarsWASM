@@ -41,13 +41,13 @@ public class HamsterService : IHamsterService
         return new ServiceResponse<bool> { Data = true };
     }
 
-    public async Task<ServiceResponse<Hamster>> GetHamsterAsync(int hamsterId)
+    public async Task<ServiceResponse<Hamster>> GetHamster(int hamsterId)
     {
         var response = new ServiceResponse<Hamster>();
         var hamster = await _context.Hamsters
             .FindAsync(hamsterId);
 
-        if (hamster == null || hamster.Deleted == false) // TODO --Kolla om denna funktion fungerar korrekt
+        if (hamster == null || hamster.Deleted == true) // TODO --Kolla om denna funktion fungerar korrekt
         {
             response.Success = false;
             response.Message = $"No hamster with this Id:{hamsterId}";
@@ -55,7 +55,7 @@ public class HamsterService : IHamsterService
         response.Data = hamster;
         return response;
     }
-    public async Task<ServiceResponse<List<Hamster>>> GetHamstersAsync()
+    public async Task<ServiceResponse<List<Hamster>>> GetHamsters()
     {
         var response = new ServiceResponse<List<Hamster>>
         {
@@ -129,5 +129,18 @@ public class HamsterService : IHamsterService
 
         return response;
     }
+
+    public async Task<ServiceResponse<List<Match>>> GetAllHamsterMatches(int hamsterId)
+    {
+        var response = new ServiceResponse<List<Match>>
+        {
+            Data = await _context.Matches
+            .Where(x => x.WinnerId == hamsterId || x.LoserId == hamsterId)
+            .ToListAsync()
+        };
+
+        return response;
+    }
+
 }
 

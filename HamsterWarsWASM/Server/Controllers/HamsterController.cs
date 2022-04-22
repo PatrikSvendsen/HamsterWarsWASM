@@ -16,14 +16,14 @@ public class HamsterController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<Hamster>>>> GetHamsters()
     {
-        var result = await _hamsterService.GetHamstersAsync();
+        var result = await _hamsterService.GetHamsters();
         return Ok(result);
     }
 
     [HttpGet("{hamsterId}")]
     public async Task<ActionResult<ServiceResponse<Hamster>>> GetHamster(int hamsterId)
     {
-        var result = await _hamsterService.GetHamsterAsync(hamsterId);
+        var result = await _hamsterService.GetHamster(hamsterId);
         return Ok(result);
     }
 
@@ -37,7 +37,6 @@ public class HamsterController : ControllerBase
     [HttpGet("battle")]
     public async Task<ActionResult<ServiceResponse<List<Hamster>>>> Get2ShuffledHamsters()
     {
-        //await _hamsterService.GetHamstersAsync();
         var result = await _hamsterService.ShuffleRandomHamsters();
         return Ok(result);
     }
@@ -63,4 +62,10 @@ public class HamsterController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("matchwinners/{hamsterId}")]
+    public async Task<ActionResult<ServiceResponse<List<Match>>>> GetAllHamsterMatches(int hamsterId)
+    {
+        var result = await _hamsterService.GetAllHamsterMatches(hamsterId);
+        return Ok(result);
+    }
 }

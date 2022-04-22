@@ -1,0 +1,19 @@
+﻿<div class="card">
+    <div class="card-header" >
+        @Heading 
+    </div>
+    <div class="card-body card col-4" style="width: 25rem; height: 23rem">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Heading { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string HeadingClass { get; set; }
+}
