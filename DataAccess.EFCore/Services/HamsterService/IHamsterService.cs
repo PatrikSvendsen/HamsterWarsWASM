@@ -11,7 +11,5 @@ public interface IHamsterService
     Task<ServiceResponse<Hamster>> UpdateHamster(Hamster hamster);
     Task<ServiceResponse<bool>> DeleteHamster(int hamsterId);
     Task<ServiceResponse<List<Hamster>>> GetTop5(string top5);
-    Task<ServiceResponse<Hamster>> UpdateWinningResult(int hamsterId);
-    Task<ServiceResponse<Hamster>> UpdateDefeatedResult(int hamsterId);
     Task<ServiceResponse<List<Hamster>>> ShuffleRandomHamsters();
 }

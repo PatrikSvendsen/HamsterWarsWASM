@@ -1,60 +1,86 @@
 ﻿@page "/battle"
 @inject IHamsterService HamsterService
 
-<h3>Hamster Battle</h3>
+<h3>Welcome to this ultimate hamster battle.</h3>
 
-<div class="row">
-    @foreach (var hamster in HamsterList)
-    {
-        <div class="card col-4 d-flex" style="width: 25rem;">
-            @*<img class="card-img-top btn" @onclick="@(x => AddWin(hamster1,hamster2))" src="@hamster1.ImgName" alt="Card image cap">*@
-            <div class="card-body">
-                <h5 class="card-title">@hamster.Name</h5>
-                <p class="card-text">
-                    Loves: @hamster.Loves
+@if (HamsterList.Count == 0)
+{
+    <img src="images/spinninghamster.gif" class="img-loading" />
+}
+else
+{
+    <div class="row">
+        @foreach (var hamster in HamsterList)
+        {
+            <div class="card col-4 d-flex" style="width: 25rem; height: 23rem">
+                <img class="card-img-top btn img-battle" @onclick="@(x => InsertWinnerLosser(@hamster.Id))" src="@hamster.ImgName" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@hamster.Name</h5>
                     <br />
-                    Fav Food: @hamster.FavFood
-                </p>
+                </div>
             </div>
-        </div>
-    }
-</div>
-
+        }
+    </div>
+}
 
 @code {
-    private List<Hamster> HamsterList { get; set; } = new List<Hamster>();
+
     private static readonly Random rnd = new Random();
+    private List<Hamster> HamsterList = new List<Hamster>();
+    string message = "Welcome to this ultimate hamster battle.";
+
+    [Parameter]
+    public EventCallback<List<Hamster>> ResetList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        message = "Getting hamsters";
         await HamsterService.GetHamsters();
+        ShuffleHamsters();
     }
 
-    protected override void OnParametersSet() => ShuffleHamsters();
+    async void InsertWinnerLosser(int winningId)
+    {
+        foreach (var hamster in HamsterList)
+        {
+            if (hamster.Id == winningId)
+            {
+                hamster.Wins += 1;
+                hamster.Games += 1;
+                await HamsterService.UpdateHamster(hamster);
+            }
+            else
+            {
+                hamster.Defeats += 1;
+                hamster.Games += 1;
+                await HamsterService.UpdateHamster(hamster);
+            }
+        }
+        HamsterList = new List<Hamster>();
+        await ResetList.InvokeAsync(ShuffleHamsters());
+        StateHasChanged();
+    }
 
-
-    public List<Hamster> ShuffleHamsters()
+    List<Hamster> ShuffleHamsters()
     {
         int n = HamsterService.Hamsters.Count();
-        HamsterList = HamsterService.Hamsters;
+        var list = HamsterService.Hamsters;
 
         // Plockat från Stackoverflow/google --https://blog.codinghorror.com/shuffling/
         while (n > 1)
         {
             int k = (rnd.Next(0, n) % n);
             n--;
-            Hamster value = HamsterList[k];
-            HamsterList[k] = HamsterList[n];
-            HamsterList[n] = value;
+            Hamster value = list[k];
+            list[k] = list[n];
+            list[n] = value;
         }
 
-        List<Hamster> result = HamsterList
-        //.Where(x => x.Deleted == false)
-        .Take(2)
-        .ToList();
+        HamsterList = list
+                        .Where(x => x.Deleted == false)
+                        .Take(2)
+                        .ToList();
 
-        return result;
+        return HamsterList;
     }
-
-
 }

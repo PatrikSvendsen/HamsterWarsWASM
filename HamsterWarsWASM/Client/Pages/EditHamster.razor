@@ -118,7 +118,7 @@ else
     async void DeleteHamster()
     {
         bool confirmed = await JSRuntime.InvokeAsync<bool>
-        ("confirm", $"Do you really want to delete this hamster '{hamster.Id}'?");
+        ("confirm", $"Do you really want to delete this hamster '{hamster.Id}'?"); // TODO Ändra till bootstrap modul
         if (confirmed)
         {
             await HamsterService.DeleteHamster(hamster);

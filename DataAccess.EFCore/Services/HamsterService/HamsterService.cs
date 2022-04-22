@@ -104,44 +104,6 @@ public class HamsterService : IHamsterService
 
     }
 
-    public async Task<ServiceResponse<Hamster>> UpdateDefeatedResult(int hamsterId)
-    {
-        var defeatedHamster = await _context.Hamsters.FindAsync(hamsterId);
-        if (defeatedHamster == null)
-        {
-            return new ServiceResponse<Hamster>
-            {
-                Success = false,
-                Message = "Hamster not found."
-            };
-        }
-
-        defeatedHamster.Defeats +=
-        defeatedHamster.Games +=
-
-        await _context.SaveChangesAsync();
-        return new ServiceResponse<Hamster> { Data = defeatedHamster };
-    }
-
-    public async Task<ServiceResponse<Hamster>> UpdateWinningResult(int hamsterId)
-    {
-        var winningHamster = await _context.Hamsters.FindAsync(hamsterId);
-        if (winningHamster == null)
-        {
-            return new ServiceResponse<Hamster>
-            {
-                Success = false,
-                Message = "Hamster not found."
-            };
-        }
-
-        winningHamster.Wins +=
-        winningHamster.Games +=
-
-        await _context.SaveChangesAsync();
-        return new ServiceResponse<Hamster> { Data = winningHamster };
-    }
-
     public async Task<ServiceResponse<List<Hamster>>> ShuffleRandomHamsters()
     {
         int n = _context.Hamsters.Count();

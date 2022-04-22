@@ -7,6 +7,92 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\hamsters\hamster-1.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-10.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-11.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-12.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-13.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-14.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-15.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-16.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-17.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-18.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-19.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-2.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-20.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-21.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-22.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-23.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-24.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-25.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-26.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-27.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-28.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-29.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-3.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-30.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-31.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-32.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-33.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-34.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-35.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-36.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-37.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-38.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-39.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-4.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-40.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-5.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-6.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-7.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-8.jpg" />
+    <Content Remove="wwwroot\images\hamsters\hamster-9.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\hamsters\hamster-1.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-10.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-11.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-12.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-13.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-14.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-15.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-16.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-17.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-18.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-19.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-2.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-20.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-21.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-22.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-23.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-24.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-25.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-26.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-27.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-28.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-29.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-3.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-30.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-31.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-32.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-33.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-34.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-35.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-36.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-37.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-38.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-39.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-4.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-40.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-5.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-6.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-7.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-8.jpg" />
+    <None Include="wwwroot\images\hamsters\hamster-9.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.3" PrivateAssets="all" />
@@ -22,10 +108,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\HamsterWarsWASM.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\hamsters\" />
   </ItemGroup>
 
 </Project>

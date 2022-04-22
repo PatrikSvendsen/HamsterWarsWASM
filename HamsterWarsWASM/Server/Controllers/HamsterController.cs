@@ -37,6 +37,7 @@ public class HamsterController : ControllerBase
     [HttpGet("battle")]
     public async Task<ActionResult<ServiceResponse<List<Hamster>>>> Get2ShuffledHamsters()
     {
+        //await _hamsterService.GetHamstersAsync();
         var result = await _hamsterService.ShuffleRandomHamsters();
         return Ok(result);
     }
