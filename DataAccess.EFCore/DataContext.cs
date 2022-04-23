@@ -11,35 +11,10 @@ public class DataContext : DbContext
 
     public DbSet<Hamster> Hamsters { get; set; }
     public DbSet<Match> Matches { get; set; }
+    public DbSet<HamsterMatch> HamsterMatches { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Match>().HasData(
-            new Match
-            {
-                Id = 1,
-                LoserId = 1,
-                WinnerId = 2,
-            },
-            new Match
-            {
-                Id = 2,
-                LoserId = 4,
-                WinnerId = 3,
-            },
-            new Match
-            {
-                Id = 3,
-                LoserId = 5,
-                WinnerId = 6,
-            },
-            new Match
-            {
-                Id = 4,
-                LoserId = 7,
-                WinnerId = 8,
-            });
-
         modelBuilder.Entity<Hamster>().HasData(
         #region AddHamstrar
                 new Hamster

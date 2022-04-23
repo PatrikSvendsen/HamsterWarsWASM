@@ -1,5 +1,6 @@
 ﻿@page "/battle"
 @inject IHamsterService HamsterService
+@inject IMatchService MatchService
 
 <h3>Welcome to this ultimate hamster battle.</h3>
 
@@ -76,15 +77,19 @@ else
             {
                 hamster.Wins += 1;
                 hamster.Games += 1;
+                Match.WinnerId = winningId;
                 await HamsterService.UpdateHamster(hamster);
             }
             else
             {
                 hamster.Defeats += 1;
                 hamster.Games += 1;
+                Match.LoserId = hamster.Id;
                 await HamsterService.UpdateHamster(hamster);
             }
         }
+
+        await MatchService.CreateMatch(Match);
 
         Match = new Match();
         StateHasChanged();

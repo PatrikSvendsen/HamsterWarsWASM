@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccess.EFCore.Services.GenericService;
+using DataAccess.EFCore.Services.HamsterMatchService;
+using Microsoft.EntityFrameworkCore;
 
 namespace HamsterWarsWASM.Server.Extensions;
 
@@ -13,9 +15,12 @@ public static class ServiceExtensions
         IConfiguration configuration)
     {
         //-----------|  DbContext
+        services.AddScoped<DataContext>();
         //-----------|  Repositories
         //-----------|  Services
-        services.AddScoped<IHamsterService, HamsterService>();
-        services.AddScoped<IMatchService, MatchService>();
+        services.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
+        services.AddTransient<IHamsterService, HamsterService>();
+        services.AddTransient<IMatchService, MatchService>();
+        services.AddTransient<IHamsterMatchService, HamsterMatchService>();
     }
 }
