@@ -5,7 +5,7 @@ namespace DataAccess.EFCore.Services.GenericService;
 
 public class GenericService<T> : IGenericService<T> where T : class
 {
-    private readonly DataContext _context;
+    protected readonly DataContext _context;
 
     public GenericService(DataContext context)
     {

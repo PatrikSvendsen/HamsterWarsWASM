@@ -16,14 +16,14 @@ public class HamsterController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<Hamster>>>> GetHamsters()
     {
-        var result = await _hamsterService.GetHamsters();
+        var result = await _hamsterService.GetAll();
         return Ok(result);
     }
 
     [HttpGet("{hamsterId}")]
     public async Task<ActionResult<ServiceResponse<Hamster>>> GetHamster(int hamsterId)
     {
-        var result = await _hamsterService.GetHamster(hamsterId);
+        var result = await _hamsterService.GetById(hamsterId);
         return Ok(result);
     }
 
@@ -44,21 +44,21 @@ public class HamsterController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<Hamster>>> CreateHamster(Hamster hamster)
     {
-        var result = await _hamsterService.CreateHamster(hamster);
+        var result = await _hamsterService.Insert(hamster);
         return Ok(result);
     }
 
     [HttpPut]
     public async Task<ActionResult<ServiceResponse<Hamster>>> UpdateHamster(Hamster hamster)
     {
-        var result = await _hamsterService.UpdateHamster(hamster);
+        var result = await _hamsterService.Update(hamster);
         return Ok(result);
     }
 
     [HttpDelete("{hamsterId}")]
     public async Task<ActionResult<ServiceResponse<bool>>> DeleteHamster(int hamsterId)
     {
-        var result = await _hamsterService.DeleteHamster(hamsterId);
+        var result = await _hamsterService.Delete(hamsterId);
         return Ok(result);
     }
 

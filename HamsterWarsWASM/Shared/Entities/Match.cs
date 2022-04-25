@@ -11,4 +11,6 @@ public class Match
     public int WinnerId { get; set; }
     public int LoserId { get; set; }
     public bool Deleted { get; set; } = false;
+
+    public ICollection<Hamster>? Hamster { get; set; }
 }

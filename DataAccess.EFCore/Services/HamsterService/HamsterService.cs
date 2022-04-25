@@ -1,27 +1,28 @@
-﻿using HamsterWarsWASM.Shared.Entities;
+﻿using DataAccess.EFCore.Services.GenericService;
+using HamsterWarsWASM.Shared.Entities;
 using HamsterWarsWASM.Shared.Service;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.EFCore.Services.HamsterService;
 
-public class HamsterService : IHamsterService
+public class HamsterService : GenericService<Hamster>, IHamsterService
 {
-    private readonly DataContext _context;
+    //private readonly DataContext _context;
     private static readonly Random rnd = new Random();
 
-    public HamsterService(DataContext context)
+    public HamsterService(DataContext context) : base(context)
     {
-        _context = context;
+        //_context = context;
     }
 
-    public async Task<ServiceResponse<Hamster>> CreateHamster(Hamster hamster)
-    {
-        _context.Hamsters.Add(hamster);
-        await _context.SaveChangesAsync();
-        return new ServiceResponse<Hamster> { Data = hamster };
-    }
+    //public async Task<ServiceResponse<Hamster>> CreateHamster(Hamster hamster)
+    //{
+    //    _context.Hamsters.Add(hamster);
+    //    await _context.SaveChangesAsync();
+    //    return new ServiceResponse<Hamster> { Data = hamster };
+    //}
 
-    public async Task<ServiceResponse<bool>> DeleteHamster(int hamsterId) // Bättre att inte ta bort hamster helt. Ha dem kvar men "osynliga".
+    public override async Task<ServiceResponse<bool>> Delete(int hamsterId) // Bättre att inte ta bort hamster helt. Ha dem kvar men "osynliga".
                                                                           // då skiter inte db på sig om man kollar history.
     {
         var dbHamster = await _context.Hamsters.FindAsync(hamsterId);
@@ -41,30 +42,31 @@ public class HamsterService : IHamsterService
         return new ServiceResponse<bool> { Data = true };
     }
 
-    public async Task<ServiceResponse<Hamster>> GetHamster(int hamsterId)
-    {
-        var response = new ServiceResponse<Hamster>();
-        var hamster = await _context.Hamsters
-            .FindAsync(hamsterId);
+    //public async Task<ServiceResponse<Hamster>> GetHamster(int hamsterId)
+    //{
+    //    var response = new ServiceResponse<Hamster>();
+    //    var hamster = await _context.Hamsters
+    //        .FindAsync(hamsterId);
 
-        if (hamster == null || hamster.Deleted == true) // TODO --Kolla om denna funktion fungerar korrekt
-        {
-            response.Success = false;
-            response.Message = $"No hamster with this Id:{hamsterId}";
-        }
-        response.Data = hamster;
-        return response;
-    }
-    public async Task<ServiceResponse<List<Hamster>>> GetHamsters()
-    {
-        var response = new ServiceResponse<List<Hamster>>
-        {
-            Data = await _context.Hamsters
-            .Where(x => x.Deleted == false)
-            .ToListAsync()
-        };
-        return response;
-    }
+    //    if (hamster == null || hamster.Deleted == true) // TODO --Kolla om denna funktion fungerar korrekt
+    //    {
+    //        response.Success = false;
+    //        response.Message = $"No hamster with this Id:{hamsterId}";
+    //    }
+    //    response.Data = hamster;
+    //    return response;
+    //}
+    //public async Task<ServiceResponse<List<Hamster>>> GetHamsters()
+    //{
+    //    var response = new ServiceResponse<List<Hamster>>
+    //    {
+    //        Data = await _context.Hamsters
+    //        .Where(x => x.Deleted == false)
+    //        .ToListAsync()
+    //    };
+    //    return response;
+    //}
+
     public async Task<ServiceResponse<List<Hamster>>> GetTop5(string top5)
     {
         var response = new ServiceResponse<List<Hamster>>
@@ -77,7 +79,7 @@ public class HamsterService : IHamsterService
         return response;
     }
 
-    public async Task<ServiceResponse<Hamster>> UpdateHamster(Hamster hamster)
+    public override async Task<ServiceResponse<Hamster>> Update(Hamster hamster)
     {
         var dbHamster = await _context.Hamsters.FindAsync(hamster.Id);
         if (dbHamster == null)

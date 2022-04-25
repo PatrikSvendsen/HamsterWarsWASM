@@ -16,7 +16,7 @@ public class MatchController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<Match>>>> GetMatches()
     {
-        var result = await _matchService.GetMatches();
+        var result = await _matchService.GetAll();
         return Ok(result);
     }
 
@@ -24,14 +24,14 @@ public class MatchController : ControllerBase
     [Route("{matchId}")]
     public async Task<ActionResult<ServiceResponse<Match>>> GetMatch(int matchId)
     {
-        var result = await _matchService.GetMatch(matchId);
+        var result = await _matchService.GetById(matchId);
         return Ok(result);
     }
 
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<Match>>> CreateMatch(Match match)
     {
-        var result = await _matchService.CreateMatch(match);
+        var result = await _matchService.Insert(match);
         return Ok(result);
     }
 
@@ -39,7 +39,7 @@ public class MatchController : ControllerBase
     [Route("{matchId}")]
     public async Task<ActionResult<ServiceResponse<bool>>> DeleteMatch(int matchId)
     {
-        var result = await _matchService.DeleteMatch(matchId);
+        var result = await _matchService.Delete(matchId);
         return Ok(result);
     }
 
