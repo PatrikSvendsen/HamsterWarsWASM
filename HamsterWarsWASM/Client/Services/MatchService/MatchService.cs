@@ -24,6 +24,15 @@ public class MatchService : IMatchService
         var result = await _http.DeleteAsync($"api/match/{match.Id}");
     }
 
+    public async Task GetAllHamsterMatches(int hamsterId)
+    {
+        var response = await _http.GetFromJsonAsync<ServiceResponse<List<Match>>>($"api/match/matchwinners/{hamsterId}");
+        if (response != null && response.Data != null)
+        {
+            Matches = response.Data;
+        }
+    }
+
     public async Task<ServiceResponse<Match>> GetMatch(int matchId)
     {
         var result = await _http.GetFromJsonAsync<ServiceResponse<Match>>($"api/match/{matchId}");
@@ -33,24 +42,6 @@ public class MatchService : IMatchService
     public async Task GetMatches()
     {
         var response = await _http.GetFromJsonAsync<ServiceResponse<List<Match>>>("api/match");
-        if (response != null && response.Data != null)
-        {
-            Matches = response.Data;
-        }
-    }
-
-    public async Task GetBott5()
-    {
-        var response = await _http.GetFromJsonAsync<ServiceResponse<List<Match>>>("api/bott5");
-        if (response != null && response.Data != null)
-        {
-            Matches = response.Data;
-        }
-    }
-
-    public async Task GetTop5()
-    {
-        var response = await _http.GetFromJsonAsync<ServiceResponse<List<Match>>>("api/top5");
         if (response != null && response.Data != null)
         {
             Matches = response.Data;

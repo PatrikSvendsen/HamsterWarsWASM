@@ -64,6 +64,7 @@ public class HamsterService : GenericService<Hamster>, IHamsterService
         dbHamster.Deleted = true;
 
         await _context.SaveChangesAsync();
+
         return new ServiceResponse<bool> { Data = true };
     }
 
@@ -90,8 +91,8 @@ public class HamsterService : GenericService<Hamster>, IHamsterService
         dbHamster.Deleted = hamster.Deleted;
 
         await _context.SaveChangesAsync();
-        return new ServiceResponse<Hamster> { Data = hamster };
 
+        return new ServiceResponse<Hamster> { Data = hamster };
     }
 
     public async Task<ServiceResponse<List<Hamster>>> ShuffleRandomHamsters()
@@ -120,17 +121,6 @@ public class HamsterService : GenericService<Hamster>, IHamsterService
         return response;
     }
 
-    public async Task<ServiceResponse<List<Match>>> GetAllHamsterMatches(int hamsterId)
-    {
-        var response = new ServiceResponse<List<Match>>
-        {
-            Data = await _context.Matches
-            .Where(x => x.WinnerId == hamsterId || x.LoserId == hamsterId)
-            .ToListAsync()
-        };
-
-        return response;
-    }
 
 }
 

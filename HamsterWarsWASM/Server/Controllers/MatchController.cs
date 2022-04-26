@@ -42,4 +42,11 @@ public class MatchController : ControllerBase
         var result = await _matchService.Delete(matchId);
         return Ok(result);
     }
+
+    [HttpGet("matchwinners/{hamsterId}")]
+    public async Task<ActionResult<ServiceResponse<List<Match>>>> GetAllHamsterMatches(int hamsterId)
+    {
+        var result = await _matchService.GetAllHamsterMatches(hamsterId);
+        return Ok(result);
+    }
 }

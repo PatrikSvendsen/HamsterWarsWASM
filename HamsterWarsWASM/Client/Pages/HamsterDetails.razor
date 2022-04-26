@@ -1,6 +1,7 @@
 ﻿@page "/hamster/{id:int}"
-
+@page "/matchwinners/{id:int}"
 @inject IHamsterService HamsterService
+@inject IMatchService MatchService
 
 @if (hamster == null)
 {
@@ -15,20 +16,38 @@ else
                 <p>Wins: @hamster.Wins</p>
                 <p>Defeats: @hamster.Defeats</p>
                 <p>Battles played: @hamster.Games</p>
-                <img src="@hamster.ImgName"/>
+                <img src="@hamster.ImgName" />
             </PanelComponent>
 
         </div>
     </div>
-    @*    <div class="media">
-        <div class="media-img-wrapper mr-2">
-        <p>@hamster.Name</p>
-        <p>Age: @hamster.Age</p>
-        <p>Wins: @hamster.Wins</p>
-        <p>Defeats: @hamster.Defeats</p>
-        <p>Battles plated: @hamster.Games</p>
-        </div>
-        </div>*@
+}
+
+@if (MatchService.Matches == null || MatchService.Matches.Count == 0)
+{
+    <span>Loading all matches...</span>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Match Id</th>
+                <th>Winner</th>
+                <th>Defeated</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var matches in MatchService.Matches)
+            {
+                <tr>
+                    <td>@matches.Id</td>
+                    <td>@matches.WinnerId</td>
+                    <td>@matches.LoserId</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
 @code {
@@ -38,15 +57,22 @@ else
     [Parameter]
     public int Id { get; set; }
 
+    protected override async Task OnInitializedAsync()
+    {
+        await MatchService.GetAllHamsterMatches(Id);
+    }
+
     protected override async Task OnParametersSetAsync()
     {
         message = "Getting hamster..";
-
         var result = await HamsterService.GetHamster(Id);
+
         if (!result.Success)
         {
             message = result.Message;
         }
         hamster = result.Data;
     }
+
+    
 }

@@ -20,7 +20,6 @@ public class DataContext : DbContext
         //    .WithMany(hi => hi.Matches)
 
 
-
         modelBuilder.Entity<Hamster>().HasData(
         // Tack Rasmus för alla hamstrar.
         #region AddHamstrar

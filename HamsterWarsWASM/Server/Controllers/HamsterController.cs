@@ -55,10 +55,5 @@ public class HamsterController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("matchwinners/{hamsterId}")]
-    public async Task<ActionResult<ServiceResponse<List<Match>>>> GetAllHamsterMatches(int hamsterId)
-    {
-        var result = await _hamsterService.GetAllHamsterMatches(hamsterId);
-        return Ok(result);
-    }
+
 }

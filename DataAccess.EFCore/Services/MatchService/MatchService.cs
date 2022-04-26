@@ -71,6 +71,18 @@ public class MatchService : GenericService<Match>, IMatchService
 
     //    return response;
     //}
+
+    public async Task<ServiceResponse<List<Match>>> GetAllHamsterMatches(int hamsterId)
+    {
+        var response = new ServiceResponse<List<Match>>
+        {
+            Data = await _context.Matches
+            .Where(x => x.WinnerId == hamsterId || x.LoserId == hamsterId)
+            .ToListAsync()
+        };
+
+        return response;
+    }
 }
 
 
