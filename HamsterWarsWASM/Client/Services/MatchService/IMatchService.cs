@@ -7,4 +7,7 @@ public interface IMatchService
     Task<ServiceResponse<Match>> GetMatch(int matchId);
     Task<Match> CreateMatch(Match match);
     Task DeleteMatch(Match match);
+
+    Task GetTop5();
+    Task GetBott5();
 }

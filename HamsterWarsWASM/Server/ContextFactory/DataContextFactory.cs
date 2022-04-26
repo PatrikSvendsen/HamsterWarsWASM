@@ -1,5 +1,4 @@
-﻿using DataAccess.EFCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace HamsterWarsWASM.Server.ContextFactory;

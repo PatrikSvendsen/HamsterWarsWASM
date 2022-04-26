@@ -38,4 +38,22 @@ public class MatchService : IMatchService
             Matches = response.Data;
         }
     }
+
+    public async Task GetBott5()
+    {
+        var response = await _http.GetFromJsonAsync<ServiceResponse<List<Match>>>("api/bott5");
+        if (response != null && response.Data != null)
+        {
+            Matches = response.Data;
+        }
+    }
+
+    public async Task GetTop5()
+    {
+        var response = await _http.GetFromJsonAsync<ServiceResponse<List<Match>>>("api/top5");
+        if (response != null && response.Data != null)
+        {
+            Matches = response.Data;
+        }
+    }
 }

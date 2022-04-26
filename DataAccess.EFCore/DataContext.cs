@@ -15,7 +15,14 @@ public class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //modelBuilder.Entity<Match>()
+        //    .HasOne(ha => ha.Hamster)
+        //    .WithMany(hi => hi.Matches)
+
+
+
         modelBuilder.Entity<Hamster>().HasData(
+        // Tack Rasmus för alla hamstrar.
         #region AddHamstrar
                 new Hamster
                 {
@@ -417,7 +424,7 @@ public class DataContext : DbContext
                     FavFood = "Sallad",
                     Deleted = false
                 });
-        #endregion
+        #endregion // Tack Rasmus <3
     }
 
 }

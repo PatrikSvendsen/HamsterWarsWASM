@@ -22,26 +22,6 @@ public class HamsterService : GenericService<Hamster>, IHamsterService
     //    return new ServiceResponse<Hamster> { Data = hamster };
     //}
 
-    public override async Task<ServiceResponse<bool>> Delete(int hamsterId) // Bättre att inte ta bort hamster helt. Ha dem kvar men "osynliga".
-                                                                          // då skiter inte db på sig om man kollar history.
-    {
-        var dbHamster = await _context.Hamsters.FindAsync(hamsterId);
-        if (dbHamster == null)
-        {
-            return new ServiceResponse<bool>
-            {
-                Success = false,
-                Data = false,
-                Message = "Hamster not found."
-            };
-        }
-
-        dbHamster.Deleted = true;
-
-        await _context.SaveChangesAsync();
-        return new ServiceResponse<bool> { Data = true };
-    }
-
     //public async Task<ServiceResponse<Hamster>> GetHamster(int hamsterId)
     //{
     //    var response = new ServiceResponse<Hamster>();
@@ -67,16 +47,24 @@ public class HamsterService : GenericService<Hamster>, IHamsterService
     //    return response;
     //}
 
-    public async Task<ServiceResponse<List<Hamster>>> GetTop5(string top5)
+    public override async Task<ServiceResponse<bool>> Delete(int hamsterId) // Bättre att inte ta bort hamster helt. Ha dem kvar men "osynliga".
+                                                                          // då skiter inte db på sig om man kollar history.
     {
-        var response = new ServiceResponse<List<Hamster>>
+        var dbHamster = await _context.Hamsters.FindAsync(hamsterId);
+        if (dbHamster == null)
         {
-            Data = await _context.Hamsters
-            //.OrderByDescending(x => x.Wins)
-            .Take(2)
-            .ToListAsync()
-        };
-        return response;
+            return new ServiceResponse<bool>
+            {
+                Success = false,
+                Data = false,
+                Message = "Hamster not found."
+            };
+        }
+
+        dbHamster.Deleted = true;
+
+        await _context.SaveChangesAsync();
+        return new ServiceResponse<bool> { Data = true };
     }
 
     public override async Task<ServiceResponse<Hamster>> Update(Hamster hamster)

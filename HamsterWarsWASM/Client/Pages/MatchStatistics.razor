@@ -1,35 +1,82 @@
 ﻿@page "/statistics"
-@inject IMatchService MatchService
+@inject IHamsterService HamsterService
 
 
-
-@if(MatchService.Matches == null || MatchService.Matches.Count == 0)
+@if (HamsterService.Hamsters == null || HamsterService.Hamsters.Count == 0)
 {
-    <span>Loading all matches...</span>
+    <span>Loading hamsters..</span>
 }
 else
 {
     <p>Tanken här är att top 5 och sämsta 5 ska visas</p>
     <table class="table">
         <thead>
-                <tr>
-                <th>Match Id</th>
-                <th>Winner</th>
-                <th>Defeated</th>
+            <tr>
+                <th>Hamster Id</th>
+                <th>Name</th>
+                <th>Wins</th>
             </tr>
         </thead>
         <tbody>
-        @foreach (var matches in MatchService.Matches)
-        {
+            @foreach (var hamster in Top5Hamsters)
+            {
                 <tr>
-                    <td>@matches.Id</td>
-                    <td>@matches.WinnerId</td>
-                    <td>@matches.LoserId</td>
-              </tr>
-        }
+                    <td>@hamster.Id</td>
+                    <td>@hamster.Name</td>
+                    <td>@hamster.Wins</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Hamster Id</th>
+                <th>Name</th>
+                <th>Defeats</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var hamster in Bottom5Hamsters)
+            {
+                <tr>
+                    <td>@hamster.Id</td>
+                    <td>@hamster.Name</td>
+                    <td>@hamster.Defeats</td>
+                </tr>
+            }
         </tbody>
     </table>
 }
 @code {
-    private List<Match>? Matches = null;
+
+    private List<Hamster> Top5Hamsters = new List<Hamster>();
+    private List<Hamster> Bottom5Hamsters = new List<Hamster>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await HamsterService.GetHamsters();
+        GetTop5();
+        GetBott5();
+    }
+
+    List<Hamster> GetTop5()
+    {
+        var list = HamsterService.Hamsters;
+        Top5Hamsters = list
+                        .OrderByDescending(x => x.Wins)
+                        .Take(5)
+                        .ToList();
+        return Top5Hamsters;
+    }
+
+    List<Hamster> GetBott5()
+    {
+        var list = HamsterService.Hamsters;
+        Bottom5Hamsters = list
+                        .OrderByDescending(x => x.Defeats)
+                        .Take(5)
+                        .ToList();
+        return Bottom5Hamsters;
+    }
 }

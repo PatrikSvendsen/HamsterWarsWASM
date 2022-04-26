@@ -14,7 +14,7 @@ public class GenericService<T> : IGenericService<T> where T : class
 
     public virtual async Task<ServiceResponse<bool>> Delete(int id)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException(); // Man måste göra en override i varje service för classerna.
     }
 
     public virtual async Task<ServiceResponse<List<T>>> GetAll()  // Måste lägga till att ta bort Deleted = false.

@@ -42,6 +42,4 @@ public class MatchController : ControllerBase
         var result = await _matchService.Delete(matchId);
         return Ok(result);
     }
-
-
 }

@@ -9,8 +9,8 @@ public class MatchService : GenericService<Match>, IMatchService
 {
     //private readonly DataContext _context;
 
-    public MatchService(DataContext context) : base(context) 
-    { 
+    public MatchService(DataContext context) : base(context)
+    {
         //_context = context;
     }
 

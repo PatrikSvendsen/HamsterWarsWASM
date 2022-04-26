@@ -27,13 +27,6 @@ public class HamsterController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("top5")]
-    public async Task<ActionResult<ServiceResponse<List<Match>>>> GetTop5(string top5 = null)
-    {
-        var result = await _hamsterService.GetTop5(top5);
-        return Ok(result);
-    }
-
     [HttpGet("battle")]
     public async Task<ActionResult<ServiceResponse<List<Hamster>>>> Get2ShuffledHamsters()
     {

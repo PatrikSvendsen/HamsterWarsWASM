@@ -11,7 +11,6 @@ public interface IHamsterService : IGenericService<Hamster>
     //Task<ServiceResponse<Hamster>> CreateHamster(Hamster hamster);
     Task<ServiceResponse<Hamster>> Update(Hamster hamster);
     Task<ServiceResponse<bool>> Delete(int hamsterId);
-    Task<ServiceResponse<List<Hamster>>> GetTop5(string top5);
     Task<ServiceResponse<List<Hamster>>> ShuffleRandomHamsters();
     Task<ServiceResponse<List<Match>>> GetAllHamsterMatches(int hamsterId);
 }
