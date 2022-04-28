@@ -11,13 +11,17 @@ public class DataContext : DbContext
 
     public DbSet<Hamster> Hamsters { get; set; }
     public DbSet<Match> Matches { get; set; }
-    //public DbSet<HamsterMatch> HamsterMatches { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //modelBuilder.Entity<Match>()
-        //    .HasOne(ha => ha.Hamster)
-        //    .WithMany(hi => hi.Matches)
+        //modelBuilder.Entity<Hamster>()
+        //    .HasOne(m => m.Match)
+        //    .WithMany(h => h.Hamsters)
+        //    .HasForeignKey(c => c.Match);
+
+        modelBuilder.Entity<Match>()
+            .HasMany(c => c.Hamsters)
+            .WithOne(e => e.Match);
 
 
         modelBuilder.Entity<Hamster>().HasData(

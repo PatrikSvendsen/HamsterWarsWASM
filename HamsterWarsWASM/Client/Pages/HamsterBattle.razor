@@ -5,50 +5,66 @@
 <h3>Welcome to this ultimate hamster battle.</h3>
 
 
-
 @if (HamsterList.Count == 0)
 {
     <img src="images/spinninghamster.gif" class="img-loading" />
 }
 else
 {
-    <div class="row">
-        @foreach (var hamster in HamsterList)
-        {
-            <div class="card col-4" style="width: 25rem; height: 23rem">
+
+    @foreach (var hamster in HamsterList)
+    {
+        <body>
+            @*            <div class="card col-4" style="width: 25rem; height: 23rem">
                 <img class="card-img-top btn img-battle" @onclick="@(x => InsertWinnerLosser(@hamster.Id))" src="@hamster.ImgName" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">@hamster.Name</h5>
-                    <br />
-                    <p>@hamster.Wins</p>
-                    <p>@hamster.Defeats</p>
-                    <p>@hamster.Games</p>
-                    <p>Age: @hamster.Age</p>
-                    <p>@hamster.Loves</p>
-                    <p>@hamster.FavFood</p>
+                <h5 class="card-title">@hamster.Name</h5>
+                <br />
+                <p>Age: @hamster.Age</p>
+                <p>@hamster.Loves</p>
+                <p>@hamster.FavFood</p>
+                </div>
+                </div>*@
+            <div class="wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4">
+                            <div class="card mx-20">
+                                <img src="@hamster.ImgName" class="img-battle" />
+                                <div class="card-body">
+                                    <h5 class="card-title">@hamster.Name</h5>                                   <p class="card-text">
+                                        Age: @hamster.Age
+                                        Loves: @hamster.Loves
+                                        FavFood: @hamster.FavFood
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        }
-    </div>
+        </body>
+    }
 
-@*    <div class="row">
+    @*    <div class="row">
         <div class="btn btn-primary" @onclick="ResetBattle">Generate new battle</div>
         <br />
         @foreach (var hamster in oldHamsterList)
         {
-            <br />
-            @if (oldHamsterList.Count == 0)
-            {
-                <span>No battle played today...</span>
-            }
-            <CardComponent Heading="@hamster.Name">
-                <p>@hamster.Wins</p>
-                <p>@hamster.Defeats</p>
-                <p>@hamster.Games</p>
-            </CardComponent>
+
+        @if (oldHamsterList.Count == 0)
+        {
+        <span>No battle played today...</span>
+        }
+        <br />
+        <p>@@hamster.Name</p>
+        <p>@hamster.Wins</p>
+        <p>@hamster.Defeats</p>
+        <p>@hamster.Games</p>
 
         }
-    </div>*@
+        </div>*@
+
 }
 
 @code {

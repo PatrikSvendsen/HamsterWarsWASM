@@ -1,15 +1,34 @@
-﻿<div class="card">
+﻿@*<div class="card">
     <div class="card-header" >
         @Heading 
     </div>
     <div class="card-body card col-4" style="width: 25rem; height: 23rem">
         @ChildContent
     </div>
-</div>
+</div>*@
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <card>
+                        <img src="@Source"/>
+                        <div class="card-body">
+                            <h5 class="card-title">@Heading</h5>
+                            <p class="card-text">@ChildContent</p>
+                        </div>
+                    </card>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 
 @code {
     [Parameter]
     public string Heading { get; set; }
+    public string Source { get; set; }
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }

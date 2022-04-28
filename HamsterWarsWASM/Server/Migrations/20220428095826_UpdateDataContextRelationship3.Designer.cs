@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HamsterWarsWASM.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220425172937_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220428095826_UpdateDataContextRelationship3")]
+    partial class UpdateDataContextRelationship3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -624,14 +624,16 @@ namespace HamsterWarsWASM.Server.Migrations
 
             modelBuilder.Entity("HamsterWarsWASM.Shared.Entities.Hamster", b =>
                 {
-                    b.HasOne("HamsterWarsWASM.Shared.Entities.Match", null)
-                        .WithMany("Hamster")
+                    b.HasOne("HamsterWarsWASM.Shared.Entities.Match", "Match")
+                        .WithMany("Hamsters")
                         .HasForeignKey("MatchId");
+
+                    b.Navigation("Match");
                 });
 
             modelBuilder.Entity("HamsterWarsWASM.Shared.Entities.Match", b =>
                 {
-                    b.Navigation("Hamster");
+                    b.Navigation("Hamsters");
                 });
 #pragma warning restore 612, 618
         }

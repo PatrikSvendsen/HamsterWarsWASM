@@ -25,4 +25,9 @@ public class Hamster
     public bool IsNew { get; set; } = false;
     [NotMapped]
     public bool Editing { get; set; } = false;
+
+
+    [ForeignKey(nameof(Match))]
+    public int? MatchId { get; set; }
+    public Match? Match { get; set; }
 }

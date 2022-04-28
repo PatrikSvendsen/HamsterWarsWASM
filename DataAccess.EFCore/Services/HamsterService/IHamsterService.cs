@@ -6,11 +6,11 @@ namespace DataAccess.EFCore.Services.HamsterService;
 
 public interface IHamsterService : IGenericService<Hamster>
 {
-    //Task<ServiceResponse<List<Hamster>>> GetHamsters();
-    //Task<ServiceResponse<Hamster>> GetHamster(int hamsterId);
-    //Task<ServiceResponse<Hamster>> CreateHamster(Hamster hamster);
     Task<ServiceResponse<Hamster>> Update(Hamster hamster);
     Task<ServiceResponse<bool>> Delete(int hamsterId);
     Task<ServiceResponse<List<Hamster>>> ShuffleRandomHamsters();
 
+    //Task<ServiceResponse<List<Hamster>>> GetHamsters();
+    //Task<ServiceResponse<Hamster>> GetHamster(int hamsterId);
+    //Task<ServiceResponse<Hamster>> CreateHamster(Hamster hamster);
 }

@@ -14,6 +14,30 @@ public class MatchService : GenericService<Match>, IMatchService
         //_context = context;
     }
 
+    public async Task<ServiceResponse<List<Match>>> GetAllHamsterMatches(int hamsterId)
+    {
+        var response = new ServiceResponse<List<Match>>
+        {
+            Data = await _context.Matches
+            .Where(x => x.WinnerId == hamsterId || x.LoserId == hamsterId)
+            .ToListAsync()
+        };
+
+        return response;
+    }
+
+    public override async Task<ServiceResponse<List<Match>>> GetAll()
+    {
+        var matches = await _context.Matches
+            .Include(x => x.Hamsters)
+            .ToListAsync();
+
+        return new ServiceResponse<List<Match>>
+        {
+            Data = matches
+        };
+    }
+
     //public async Task<ServiceResponse<Match>> CreateMatch(Match match)
     //{
     //    _context.Matches.Add(match);
@@ -71,18 +95,6 @@ public class MatchService : GenericService<Match>, IMatchService
 
     //    return response;
     //}
-
-    public async Task<ServiceResponse<List<Match>>> GetAllHamsterMatches(int hamsterId)
-    {
-        var response = new ServiceResponse<List<Match>>
-        {
-            Data = await _context.Matches
-            .Where(x => x.WinnerId == hamsterId || x.LoserId == hamsterId)
-            .ToListAsync()
-        };
-
-        return response;
-    }
 }
 
 
