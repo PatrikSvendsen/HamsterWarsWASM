@@ -16,50 +16,39 @@ else
         Click here to add a new hamster
     </button>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Loves</th>
-                <th>FavFood</th>
-                <th>Wins</th>
-                <th>Defeats</th>
-                <th>Games </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var hamster in HamsterService.Hamsters)
+    <WrapperContainerBattleComponent>
+        @foreach (var hamster in HamsterService.Hamsters)
+        {
+            if (hamster.Deleted == false)
             {
-                if (hamster.Deleted == false)
-                {
-                    <PanelComponent Heading="@hamster.Name">
-                        <td>@hamster.Age</td>
-                        <td>@hamster.Loves</td>
-                        <td>@hamster.FavFood</td>
-                        <td>@hamster.Wins</td>
-                        <td>@hamster.Defeats</td>
-                        <td>@hamster.Games</td>
-                    </PanelComponent>
-                    <tr>
-                        <td><img class="img-gallery" src="@hamster.ImgName" /></td>
-@*                       <td>@hamster.Age</td>
-                        <td>@hamster.Loves</td>
-                        <td>@hamster.FavFood</td>
-                        <td>@hamster.Wins</td>
-                        <td>@hamster.Defeats</td>
-                        <td>@hamster.Games</td>*@
-                        <button class="btn btn-warning" @onclick="@(() => EditHamster(@hamster.Id))">
-                            Edit
-                        </button>
-                    </tr>
-                }
+                <CardGalleryComponent Heading="@hamster.Name" Source="@hamster.ImgName">
+                    <p>
+                        This hamster is @hamster.Age years old and loves @hamster.Loves.
+                    </p>
+                    <button class="btn btn-warning" @onclick="@(() => EditHamster(@hamster.Id))">
+                        Edit
+                    </button>
+                </CardGalleryComponent>
+
             }
-        </tbody>
-    </table>
+        }
+    </WrapperContainerBattleComponent>
+    @*    @foreach (var hamster in HamsterService.Hamsters)
+        {
+        if (hamster.Deleted == false)
+        {
+        <EditableMessage Details="@hamster"></EditableMessage>
+        }
+
+        }*@
+
 }
 
+
+
 @code {
+    private bool overlayVisible;
+    private bool editMode;
 
     protected override async Task OnInitializedAsync()
     {
@@ -79,5 +68,20 @@ else
     public void Dispose()
     {
         HamsterService.HamstersChanged -= StateHasChanged;
+    }
+    void ToggleEdit()
+    {
+        editMode = true;
+        overlayVisible = false;
+    }
+
+    void ShowOverlay()
+    {
+        overlayVisible = true;
+    }
+
+    void HideOverlay()
+    {
+        overlayVisible = false;
     }
 }

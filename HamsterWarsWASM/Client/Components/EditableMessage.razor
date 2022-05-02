@@ -1,0 +1,72 @@
+﻿<div class="message-container">
+    @if (editMode)
+    {
+        <EditMessage MessageText="@Details.Name"
+                 OnUpdated="@HandleMessageChanged"
+                 OnCancelled="@HandleEditCancelled" />
+    }
+    else
+    {
+        @if (overlayVisible)
+        {
+            <div class="overlay">
+                <div class="text">Edit</div>
+            </div>
+        }
+
+        <div class="message"
+         @onclick="ToggleEdit"
+         @onmouseover="ShowOverlay"
+         @onmouseout="HideOverlay">
+
+                <WrapperContainerBattleComponent>
+                    <CardGalleryComponent Heading="@Details.Name" Source="@Details.ImgName">
+                        @Details
+                    </CardGalleryComponent>
+    </WrapperContainerBattleComponent>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public Hamster Details { get; set; }
+
+    [Parameter]
+    public string Heading { get; set; }    
+    [Parameter]
+    public string Source { get; set; }    
+    [Parameter]
+    public RenderFragment ChilContent { get; set; }
+
+    private bool overlayVisible;
+
+    private bool editMode;
+
+    void ToggleEdit()
+    {
+        editMode = true;
+        overlayVisible = false;
+    }
+
+    void ShowOverlay()
+    {
+        overlayVisible = true;
+    }
+
+    void HideOverlay()
+    {
+        overlayVisible = false;
+    }
+
+    void HandleEditCancelled()
+    {
+        editMode = false;
+    }
+
+    void HandleMessageChanged(string newMessage)
+    {
+        Details.Name = newMessage;
+        editMode = false;
+    }
+}

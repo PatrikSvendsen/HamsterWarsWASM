@@ -1,47 +1,25 @@
-﻿
-<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">HamsterWarsWASM</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿@*    <header id="header" class="fixed-top d-flex align-items-center header-transparent">*@
+        <div class="container d-flex justify-content-between align-items-center">
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="top-row ps-3 navbar navbar-dark">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                Home
-            </NavLink> 
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="battle">
-                Tävla
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="gallery">
-                Galleri
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="statistics">
-                Statistik
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="history">
-                Historik
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="swagger/index.html">
-                Swagger
-            </NavLink>
-        </div>
-    </nav>
-</div>
+            <div id="logo">
+                @*<a href=""><img src="images/spinninghamster.gif" class="img-logo" alt=""></a>*@
+                <!-- Uncomment below if you prefer to use a text logo -->
+                <!--<h1><a href="index.html">Regna</a></h1>-->
+            </div>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto" href="">Home</a></li>
+                    <li><a class="nav-link scrollto" href="battle">Battle</a></li>
+                    <li><a class="nav-link scrollto" href="gallery">Gallery</a></li>
+                    <li><a class="nav-link scrollto" href="statistics">Statistic</a></li>
+                    <li><a class="nav-link scrollto" href="history">History</a></li>
+                    <li><a class="nav-link scrollto" href="swagger/index.html">Swagger</a></li>
+                </ul>
+            </nav>
+       </div>
+
+    @* header>*@
 
 @code {
     private bool collapseNavMenu = true;

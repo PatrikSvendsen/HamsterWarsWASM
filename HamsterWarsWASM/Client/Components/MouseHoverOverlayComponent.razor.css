@@ -1,4 +1,4 @@
-﻿.message-container {
+﻿﻿.message-container {
     position: relative;
 }
 
@@ -19,11 +19,11 @@
     opacity: 75%;
 }
 
-.overlay .text {
-    margin: 0 auto;
-    width: 98%;
-    display: block;
-    border: 2px dotted #cfcfcf;
-    padding: 1em;
-    text-align: center;
-}
+    .overlay .text {
+        margin: 0 auto;
+        width: 98%;
+        display: block;
+        border: 2px dotted #cfcfcf;
+        padding: 1em;
+        text-align: center;
+    }

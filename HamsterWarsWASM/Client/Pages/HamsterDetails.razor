@@ -9,18 +9,16 @@
 }
 else
 {
-    <div class="row row-cols-3 g-4">
-        <div class="col">
-            <PanelComponent Heading="@hamster.Name">
-                <p>Age: @hamster.Age</p>
-                <p>Wins: @hamster.Wins</p>
-                <p>Defeats: @hamster.Defeats</p>
-                <p>Battles played: @hamster.Games</p>
-                <img src="@hamster.ImgName" />
-            </PanelComponent>
-
-        </div>
-    </div>
+    <WrapperContainerBattleComponent>
+        <CardGalleryComponent Heading="@hamster.Name" Source="@hamster.ImgName">
+            <p>Age: @hamster.Age<br />
+            Loves: @hamster.Loves<br />
+            Favourite food: @hamster.FavFood<br />
+            Games played: @hamster.Games<br />
+            Games won: @hamster.Wins<br />
+            Totalt defeats: @hamster.Defeats</p>
+        </CardGalleryComponent>
+    </WrapperContainerBattleComponent>
 }
 
 @if (MatchService.Matches == null || MatchService.Matches.Count == 0)
@@ -74,5 +72,5 @@ else
         hamster = result.Data;
     }
 
-    
+
 }

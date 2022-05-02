@@ -1,18 +1,43 @@
-﻿
-@if (overlayVisible)
-{
-    <div class="overlay">
-        <div class="text">Edit</div>
-    </div>
-}
+﻿<div class="message-container">
+    @if (editMode)
+    {
+        <CardComponent Heading="@Hamster.Name"/>
+    }
+    else
+    {
+        @if (overlayVisible)
+        {
+            <div class="overlay">
+                <div class="text">Edit</div>
+            </div>
+        }
 
-<div @onmouseover="ShowOverlay" @onmouseout="HideOverlay">
-
+        <div class="message"
+         @onclick="ToggleEdit"
+         @onmouseover="ShowOverlay"
+         @onmouseout="HideOverlay">
+        </div>
+    }
 </div>
 
-@code {
 
-    public bool overlayVisible { get; set; } // = false;
+@code {
+    [Parameter]
+    public Hamster Hamster { get; set; }
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public string Heading { get; set; }
+
+    private bool overlayVisible;
+
+    private bool editMode;
+
+    void ToggleEdit()
+    {
+        editMode = true;
+        overlayVisible = false;
+    }
 
     void ShowOverlay()
     {
@@ -22,5 +47,10 @@
     void HideOverlay()
     {
         overlayVisible = false;
+    }
+
+    void HandleEditCancelled()
+    {
+        editMode = false;
     }
 }
