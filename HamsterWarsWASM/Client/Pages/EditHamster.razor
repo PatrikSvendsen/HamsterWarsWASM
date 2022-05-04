@@ -20,7 +20,7 @@ else
     }
 
     <EditForm Model="hamster" OnValidSubmit="AddOrEditHamster">
-        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <DataAnnotationsValidator />
         <div class="mb-0">
             <label for="name">Name</label>
             <InputText id="name" @bind-Value="hamster.Name" class="form-control" placeholder="Enter hamster name here"></InputText>
@@ -53,7 +53,7 @@ else
         <div class="col">
         </div>
         <button type="submit" class="btn btn-primary float-end">@btnText</button>
-        <ValidationSummary></ValidationSummary>
+        <ValidationSummary />
     </EditForm>
 
     @if (!hamster.IsNew)

@@ -2,61 +2,51 @@
 @inject IHamsterService HamsterService
 @inject IMatchService MatchService
 
-<h3>Welcome to this ultimate hamster battle.</h3>
+<h3>@message</h3>
 
 @if (HamsterList.Count == 0)
 {
-    <img src="images/spinninghamster.gif" class="img-loading" />
+    <WrapperContainerBattleComponent>
+        <img src="images/spinninghamster.gif" class="img-loading" />
+    </WrapperContainerBattleComponent>
 }
 else
 {
     <WrapperContainerBattleComponent>
-        @foreach (var hamster in HamsterList)
-        {
-            @*<body>
-                <div class="card col-4" style="width: 25rem; height: 23rem">
-                <img class="card-img-top btn img-battle" @onclick="@(x => InsertWinnerLosser(@hamster.Id))" src="@hamster.ImgName" alt="Card image cap">
-                <div class="card-body">
-                <h5 class="card-title">@hamster.Name</h5>
-                <br />
-                <p>Age: @hamster.Age</p>
-                <p>@hamster.Loves</p>
-                <p>@hamster.FavFood</p>
-                </div>
-                </div>*@
+        <WrapperContainerBattleComponent>
+            @foreach (var hamster in HamsterList)
+            {
+                <CardBattleComponent Heading="@hamster.Name" Source="@hamster.ImgName">
+                    <br />
+                    Age: @hamster.Age
+                    Loves: @hamster.Loves
+                    FavFood: @hamster.FavFood<br />
+                    <div class="btn btn-success d-flex text" @onclick="@((e) => WinningHamster(e, @hamster.Id))">Vote</div>
+                </CardBattleComponent>
+            }
+        </WrapperContainerBattleComponent>
 
-            <CardBattleComponent Heading="@hamster.Name" Source="@hamster.ImgName">
-                <br />
-                Age: @hamster.Age
-                Loves: @hamster.Loves
-                FavFood: @hamster.FavFood<br />
-                <div class="btn btn-success d-flex text" @onclick="@((e) => WinningHamster(e, @hamster.Id))">Vote</div>
-            </CardBattleComponent>
-        }
-    </WrapperContainerBattleComponent>
 
-    <div class="row">
-        <div class="col-md-6 col-lg-4">
-            <div class="btn btn-primary" @onclick="ResetBattle">Generate new battle</div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <div class="btn btn-secondary btn-lg" @onclick="ResetBattle">Generate new battle</div>
             <br />
         </div>
-    </div>
 
-    <WrapperContainerBattleComponent>
-        @foreach (var hamster in oldHamsterList)
-        {
-            @if (oldHamsterList == null)
+        <WrapperContainerBattleComponent>
+            @foreach (var hamster in oldHamsterList)
             {
-                <span>No battle played today...</span>
+                <CardAfterBattleComponent Heading="@hamster.Name">
+                    <br />
+                    <div class="">
+                        <p>
+                            This hamster has played a total of @hamster.Games games and has a win rate of
+                            @GenerateWinLossProcentage(hamster) % with @hamster.Wins wins in total.
+                        </p>
+                        <p>@hamster.Name has lost @hamster.Defeats games.</p>
+                    </div>
+                </CardAfterBattleComponent>
             }
-
-            <CardBattleComponent Heading="@hamster.Name">
-                <br />
-                <div class="col-lg-3 col-6 text-center">
-                    <p>@hamster.Name has a winning procent of @Hamster1Procent.ToString("n2") % </p>
-                </div>
-            </CardBattleComponent>
-        }
+        </WrapperContainerBattleComponent>
     </WrapperContainerBattleComponent>
 }
 
@@ -68,10 +58,6 @@ else
     private Match Match = new Match();
     string message = "Welcome to this ultimate hamster battle.";
 
-    [Parameter]
-    public double Hamster1Procent { get; set; }
-    [Parameter]
-    public double Hamster2Procent { get; set; }
     [Parameter]
     public EventCallback<List<Hamster>> ResetList { get; set; }
 
@@ -90,9 +76,15 @@ else
         StateHasChanged();
     }
 
-    void GenerateOldHamsterList()
+    double GenerateWinLossProcentage(Hamster hamster)
     {
-        oldHamsterList = HamsterList;
+        var result = hamster.Games;
+
+        if (result == 0)
+        {
+            return 0;
+        }
+        return ((@hamster.Wins * 100) / hamster.Games);
     }
 
     List<Hamster> ShuffleHamsters()
@@ -142,31 +134,4 @@ else
         oldHamsterList = HamsterList;
         StateHasChanged();
     }
-
-    //// Koden nedan används inte, finns kvar för arkivet.
-    //async void InsertWinnerLosser(int winningId)
-    //{
-    //    foreach (var hamster in HamsterList)
-    //    {
-    //        if (hamster.Id == winningId)
-    //        {
-    //            hamster.Wins += 1;
-    //            hamster.Games += 1;
-    //            Match.WinnerId = winningId;
-    //            await HamsterService.UpdateHamster(hamster);
-    //        }
-    //        else
-    //        {
-    //            hamster.Defeats += 1;
-    //            hamster.Games += 1;
-    //            Match.LoserId = hamster.Id;
-    //            await HamsterService.UpdateHamster(hamster);
-    //        }
-    //    }
-
-    //    await MatchService.CreateMatch(Match);
-
-    //    Match = new Match();
-    //    StateHasChanged();
-    //}
 }
