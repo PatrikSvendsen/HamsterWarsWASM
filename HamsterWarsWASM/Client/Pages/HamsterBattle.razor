@@ -2,7 +2,7 @@
 @inject IHamsterService HamsterService
 @inject IMatchService MatchService
 
-<h3>@message</h3>
+<h3>Welcome to this ultimate hamster battle.</h3>
 
 @if (HamsterList.Count == 0)
 {
@@ -25,13 +25,10 @@ else
                 </CardBattleComponent>
             }
         </WrapperContainerBattleComponent>
-
-
         <div class="d-grid gap-2 col-6 mx-auto">
             <div class="btn btn-secondary btn-lg" @onclick="ResetBattle">Generate new battle</div>
             <br />
         </div>
-
         <WrapperContainerBattleComponent>
             @foreach (var hamster in oldHamsterList)
             {
@@ -56,14 +53,12 @@ else
     private List<Hamster> HamsterList = new List<Hamster>();
     private List<Hamster> oldHamsterList = new List<Hamster>();
     private Match Match = new Match();
-    string message = "Welcome to this ultimate hamster battle.";
 
     [Parameter]
     public EventCallback<List<Hamster>> ResetList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        message = "Getting hamsters";
         await HamsterService.GetHamsters();
         ShuffleHamsters();
     }

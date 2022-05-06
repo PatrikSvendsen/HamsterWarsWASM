@@ -23,29 +23,22 @@ else
 
 @if (MatchService.Matches == null || MatchService.Matches.Count == 0)
 {
-    <span>Loading all matches...</span>
+    <br/><span>Loading all matches...</span>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Match Id</th>
-                <th>Winner</th>
-                <th>Defeated</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var matches in MatchService.Matches)
-            {
-                <tr>
-                    <td>@matches.Id</td>
-                    <td>@matches.WinnerId</td>
-                    <td>@matches.LoserId</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <ListMatchComponent Matches="@MatchService.Matches" Context="match">
+        <TableHeader>
+            <th>ID</th>
+            <th>Winner</th>
+            <th>Loser</th>
+        </TableHeader>
+        <RowTemplate>
+            <td>@match.Id</td>
+            <td>@match.WinnerId</td>
+            <td>@match.LoserId</td>
+        </RowTemplate>
+    </ListMatchComponent>
 }
 
 @code {

@@ -15,7 +15,6 @@ else
         <i class="oi oi-plus"></i>
         Click here to add a new hamster
     </button>
-
     <WrapperContainerBattleComponent>
         @foreach (var hamster in HamsterService.Hamsters)
         {
@@ -29,23 +28,10 @@ else
                         Edit
                     </button>
                 </CardGalleryComponent>
-
             }
         }
     </WrapperContainerBattleComponent>
-    @*    @foreach (var hamster in HamsterService.Hamsters)
-        {
-        if (hamster.Deleted == false)
-        {
-        <EditableMessage Details="@hamster"></EditableMessage>
-        }
-
-        }*@
-
 }
-
-
-
 @code {
     private bool overlayVisible;
     private bool editMode;
@@ -68,20 +54,5 @@ else
     public void Dispose()
     {
         HamsterService.HamstersChanged -= StateHasChanged;
-    }
-    void ToggleEdit()
-    {
-        editMode = true;
-        overlayVisible = false;
-    }
-
-    void ShowOverlay()
-    {
-        overlayVisible = true;
-    }
-
-    void HideOverlay()
-    {
-        overlayVisible = false;
     }
 }

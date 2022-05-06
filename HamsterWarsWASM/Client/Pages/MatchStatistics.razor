@@ -8,44 +8,32 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Hamster Id</th>
-                <th>Name</th>
-                <th>Wins</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var hamster in Top5Hamsters)
-            {
-                <tr>
-                    <td>@hamster.Id</td>
-                    <td>@hamster.Name</td>
-                    <td>@hamster.Wins</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Hamster Id</th>
-                <th>Name</th>
-                <th>Defeats</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var hamster in Bottom5Hamsters)
-            {
-                <tr>
-                    <td>@hamster.Id</td>
-                    <td>@hamster.Name</td>
-                    <td>@hamster.Defeats</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <ListHamsterComponent Hamsters="Top5Hamsters" Context="hamster">
+        <TableHeader>
+            <th>Hamster Id</th>
+            <th>Name</th>
+            <th>Wins</th>
+        </TableHeader>
+        <RowTemplate>
+            <td>@hamster.Id</td>
+            <td>@hamster.Name</td>
+            <td>@hamster.Wins</td>
+        </RowTemplate>
+    </ListHamsterComponent>
+
+    <ListHamsterComponent Hamsters="Bottom5Hamsters" Context="hamster">
+        <TableHeader>
+            <th>Hamster Id</th>
+            <th>Name</th>
+            <th>Defats</th>
+        </TableHeader>
+        <RowTemplate>
+            <td>@hamster.Id</td>
+            <td>@hamster.Name</td>
+            <td>@hamster.Defeats</td>
+        </RowTemplate>
+    </ListHamsterComponent>
+
 }
 @code {
 
