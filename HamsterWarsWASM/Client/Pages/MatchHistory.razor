@@ -8,21 +8,21 @@
 }
 else
 {
-    <ListMatchComponent Matches="@MatchList" Context="match">
-        <TableHeader>
-            <th>ID</th>
-            <th>Winner</th>
-            <th>Loser</th>
-        </TableHeader>
-        <RowTemplate>
-            <td>@match.Id</td>
-            <td>@match.WinnerId</td>
-            <td>@match.LoserId</td>
-            <td type="button" class="btn btn-danger" @onclick="@(() => EditMatch(@match.Id))">
-                Delete Match
-            </td>
-        </RowTemplate>
-    </ListMatchComponent>
+        <ListMatchComponent Matches="@MatchList" Context="match">
+            <TableHeader>
+                <th>ID</th>
+                <th>Winner</th>
+                <th>Loser</th>
+            </TableHeader>
+            <RowTemplate>
+                <td>@match.Id</td>
+                <td>@match.WinnerId</td>
+                <td>@match.LoserId</td>
+                <td type="button" class="btn btn-warning" @onclick="@(() => EditMatch(@match.Id))">
+                    Delete Match
+                </td>
+            </RowTemplate>
+        </ListMatchComponent>
 }
 
 @code {

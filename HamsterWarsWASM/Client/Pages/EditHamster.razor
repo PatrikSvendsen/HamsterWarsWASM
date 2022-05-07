@@ -112,14 +112,14 @@ else
         {
             hamster.IsNew = false;
             hamster = await HamsterService.UpdateHamster(hamster);
-            NavigationManager.NavigateTo($"", true);
+            NavigationManager.NavigateTo($"hamster/{hamster.Id}", true);
         }
     }
 
     async void DeleteHamster()
     {
         bool confirmed = await JSRuntime.InvokeAsync<bool>
-        ("confirm", $"Do you really want to delete this hamster '{hamster.Id}'?"); // TODO Ändra till bootstrap modul
+        ("confirm", $"Do you really want to delete this hamster '{hamster.Id}'?");
         if (confirmed)
         {
             await HamsterService.DeleteHamster(hamster);

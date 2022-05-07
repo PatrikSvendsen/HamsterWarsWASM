@@ -71,7 +71,7 @@ else
     async void DeleteMatch()
     {
         bool confirmed = await JSRuntime.InvokeAsync<bool>
-        ("confirm", $"Do you really want to delete this hamster '{match.Id}'?"); // TODO Ändra till bootstrap modul
+        ("confirm", $"Do you really want to delete this hamster '{match.Id}'?");
         if (confirmed)
         {
             await MatchService.DeleteMatch(match);

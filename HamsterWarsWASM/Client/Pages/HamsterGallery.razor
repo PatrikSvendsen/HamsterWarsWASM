@@ -22,8 +22,8 @@ else
                     <p>
                         This hamster is @hamster.Age years old and loves @hamster.Loves.
                     </p>
-                    <button class="btn btn-warning" @onclick="@(() => EditHamster(@hamster.Id))">
-                        Edit
+                    <button class="btn btn-success" @onclick="@(() => HamsterDetails(@hamster.Id))">
+                        More details
                     </button>
                 </CardGalleryComponent>
             }
@@ -42,8 +42,8 @@ else
         NavigationManager.NavigateTo("/create");
     }
 
-    void EditHamster(int hamsterId)
+    void HamsterDetails(int hamsterId)
     {
-        NavigationManager.NavigateTo($"edit/{hamsterId}");
+        NavigationManager.NavigateTo($"hamster/{hamsterId}");
     }
 }

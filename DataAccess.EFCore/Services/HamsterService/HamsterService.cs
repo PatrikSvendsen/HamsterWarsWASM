@@ -11,8 +11,7 @@ public class HamsterService : GenericService<Hamster>, IHamsterService
     {
     }
 
-    public override async Task<ServiceResponse<bool>> Delete(int hamsterId) // Bättre att inte ta bort hamster helt. Ha dem kvar men "osynliga".
-                                                                          // då skiter inte db på sig om man kollar history.
+    public override async Task<ServiceResponse<bool>> Delete(int hamsterId)
     {
         var dbHamster = await _context.Hamsters.FindAsync(hamsterId);
         if (dbHamster == null)

@@ -32,9 +32,9 @@ else
         <WrapperContainerBattleComponent>
             @foreach (var hamster in oldHamsterList)
             {
-                <CardAfterBattleComponent Heading="@hamster.Name">
+                <CardAfterBattleComponent Heading="@hamster.Name" HeadingInt="@hamster.Id">
                     <br />
-                    <div class="">
+                    <div>
                         <p>
                             This hamster has played a total of @hamster.Games games and has a win rate of
                             @GenerateWinLossProcentage(hamster) % with @hamster.Wins wins in total.

@@ -2,6 +2,7 @@
 @page "/matchwinners/{id:int}"
 @inject IHamsterService HamsterService
 @inject IMatchService MatchService
+@inject NavigationManager NavigationManager
 
 @if (hamster == null)
 {
@@ -11,19 +12,26 @@ else
 {
     <WrapperContainerBattleComponent>
         <CardGalleryComponent Heading="@hamster.Name" Source="@hamster.ImgName">
-            <p>Age: @hamster.Age<br />
-            Loves: @hamster.Loves<br />
-            Favourite food: @hamster.FavFood<br />
-            Games played: @hamster.Games<br />
-            Games won: @hamster.Wins<br />
-            Totalt defeats: @hamster.Defeats</p>
+            <p>
+                Age: @hamster.Age<br />
+                Loves: @hamster.Loves<br />
+                Favourite food: @hamster.FavFood<br />
+                Games played: @hamster.Games<br />
+                Games won: @hamster.Wins<br />
+                Totalt defeats: @hamster.Defeats
+            </p>
         </CardGalleryComponent>
     </WrapperContainerBattleComponent>
+    <button class="btn btn-warning" @onclick="@(() => EditHamster(@hamster.Id))">
+        Edit
+    </button>
 }
 
 @if (MatchService.Matches == null || MatchService.Matches.Count == 0)
 {
-    <br/><span>Loading all matches...</span>
+    <br />
+
+    <span>Loading all matches...</span>
 }
 else
 {
@@ -63,6 +71,10 @@ else
             message = result.Message;
         }
         hamster = result.Data;
+    }
+    void EditHamster(int hamsterId)
+    {
+        NavigationManager.NavigateTo($"edit/{hamsterId}");
     }
 
 
