@@ -1,0 +1,81 @@
+﻿@page "/match/{id:int}"
+@inject IHamsterService HamsterService
+@inject IMatchService MatchService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@if (match == null)
+{
+    <span>@message</span>
+}
+else
+{
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <WrapperContainerBattleComponent>
+            <CardAfterBattleComponent Heading="Match" HeadingInt="@match.Id">
+            </CardAfterBattleComponent>
+        </WrapperContainerBattleComponent>
+
+        <WrapperContainerBattleComponent>
+            <CardAfterBattleComponent Heading="@winningHamster.Name" HeadingInt="@match.WinnerId">
+                <p>Winning hamster: @match.WinnerId</p>
+            </CardAfterBattleComponent>
+            <CardAfterBattleComponent Heading="@defeatedHamster.Name" HeadingInt="@match.LoserId">
+                <p>Defeated hamster: @match.LoserId</p>
+            </CardAfterBattleComponent>
+        </WrapperContainerBattleComponent>
+        <div type="button" class="btn btn-danger" @onclick="DeleteMatch">
+            Delete Match
+        </div>
+    </div>
+
+}
+
+@code {
+    private Match? match = null;
+    private string message = string.Empty;
+    private Hamster? winningHamster = new Hamster();
+    private Hamster? defeatedHamster = new Hamster();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await HamsterService.GetHamsters();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        message = "Getting match..";
+        var result = await MatchService.GetMatch(Id);
+
+        if (!result.Success)
+        {
+            message = result.Message;
+        }
+        else
+        {
+            match = result.Data;
+            MatchHamsters();
+        }
+    }
+
+    void MatchHamsters()
+    {
+        var result = HamsterService.Hamsters;
+        winningHamster = result.Find(x => x.Id == match.WinnerId);
+        defeatedHamster = result.Find(x => x.Id == match.LoserId);
+    }
+
+    async void DeleteMatch()
+    {
+        bool confirmed = await JSRuntime.InvokeAsync<bool>
+        ("confirm", $"Do you really want to delete this hamster '{match.Id}'?"); // TODO Ändra till bootstrap modul
+        if (confirmed)
+        {
+            await MatchService.DeleteMatch(match);
+            NavigationManager.NavigateTo("/history");
+        }
+    }
+}

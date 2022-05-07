@@ -1,7 +1,7 @@
 ﻿<div class="col-md-6 col-lg-4">
     <div class="card mx-20">
         <div class="card-body">
-            <h5 class="card-title">@Heading</h5>
+            <h5 class="card-title">@Heading @HeadingInt</h5>
             <p class="card-text">@ChildContent</p>
         </div>
     </div>
@@ -10,6 +10,8 @@
 @code {
     [Parameter]
     public string Heading { get; set; }
+    [Parameter]
+    public int HeadingInt { get; set; }
     [Parameter]
     public string? Source { get; set; }
     [Parameter]

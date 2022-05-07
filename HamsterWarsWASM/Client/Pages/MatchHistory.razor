@@ -1,5 +1,6 @@
 ﻿@page "/history"
 @inject IMatchService MatchService
+@inject NavigationManager NavigationManager
 
 @if (MatchService.Matches == null || MatchService.Matches.Count == 0)
 {
@@ -17,7 +18,7 @@ else
             <td>@match.Id</td>
             <td>@match.WinnerId</td>
             <td>@match.LoserId</td>
-            <td type="button" class="btn btn-danger float-start" @onclick="@(() => DeleteMatch(@match))">
+            <td type="button" class="btn btn-danger" @onclick="@(() => EditMatch(@match.Id))">
                 Delete Match
             </td>
         </RowTemplate>
@@ -55,6 +56,11 @@ else
     {
         MatchList = new List<Match>();
         await ResetList.InvokeAsync(GenerateMatchList());
+    }
+
+    void EditMatch(int matchId)
+    {
+        NavigationManager.NavigateTo($"match/{matchId}");
     }
 
 }

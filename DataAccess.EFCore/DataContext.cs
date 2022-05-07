@@ -17,7 +17,7 @@ public class DataContext : DbContext
         modelBuilder.Entity<Match>()
             .HasMany(c => c.Hamsters)
             .WithOne(e => e.Match);
-        
+
         modelBuilder.Entity<Hamster>().HasData(
         // Tack Rasmus för alla hamstrar.
         #region AddHamstrar
