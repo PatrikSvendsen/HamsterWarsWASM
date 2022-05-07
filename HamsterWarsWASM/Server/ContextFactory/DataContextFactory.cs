@@ -5,6 +5,11 @@ namespace HamsterWarsWASM.Server.ContextFactory;
 
 public class DataContextFactory : IDesignTimeDbContextFactory<DataContext>
 {
+    /// <summary>
+    /// För att skapa DbContext kopplingen samt hämta ConnectionString 
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
     public DataContext CreateDbContext(string[] args)
     {
         var configuration = new ConfigurationBuilder()

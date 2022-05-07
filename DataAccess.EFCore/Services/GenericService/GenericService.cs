@@ -11,14 +11,14 @@ public class GenericService<T> : IGenericService<T> where T : class
     {
         _context = context;
     }
-
+    // Denna delete har ingen generisk då databasen är byggd på att gömma entiteter i databasen och inte ta bort dem helt. Varje class måste ha en egen delete metod
+    // Därav blir det en throw om man inte gör en ny delete.
     public virtual async Task<ServiceResponse<bool>> Delete(int id)
     {
         throw new NotImplementedException(); // Man måste göra en override i varje service för classerna.
     }
 
-    public virtual async Task<ServiceResponse<List<T>>> GetAll()  // Måste lägga till att ta bort Deleted = false.
-                                                                  // Annars får man med allt
+    public virtual async Task<ServiceResponse<List<T>>> GetAll()
     {
         var response = new ServiceResponse<List<T>>
         {
@@ -50,6 +50,7 @@ public class GenericService<T> : IGenericService<T> where T : class
         return new ServiceResponse<T> { Data = entity };
     }
 
+    //Finns ingen generisk för update. Varje class/model måste skapa en egen update. Kastar en throw på det inte gjorts.
     public virtual async Task<ServiceResponse<T>> Update(T entity)
     {
         throw new NotImplementedException();

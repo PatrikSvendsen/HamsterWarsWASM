@@ -7,11 +7,8 @@ namespace DataAccess.EFCore.Services.MatchService;
 
 public class MatchService : GenericService<Match>, IMatchService
 {
-    //private readonly DataContext _context;
-
     public MatchService(DataContext context) : base(context)
     {
-        //_context = context;
     }
 
     public async Task<ServiceResponse<List<Match>>> GetAllHamsterMatches(int hamsterId)
@@ -38,32 +35,31 @@ public class MatchService : GenericService<Match>, IMatchService
         };
     }
 
+    public override async Task<ServiceResponse<bool>> Delete(int matchId)
+    {
+        var dbMatch = await _context.Matches.FindAsync(matchId);
+        if (dbMatch == null)
+        {
+            return new ServiceResponse<bool>
+            {
+                Success = false,
+                Data = false,
+                Message = "Match not found."
+            };
+        }
+        dbMatch.Deleted = true;
+
+        await _context.SaveChangesAsync();
+        return new ServiceResponse<bool> { Data = true };
+    }
+
+    #region FörArkivetOchFramtiden
     //public async Task<ServiceResponse<Match>> CreateMatch(Match match)
     //{
     //    _context.Matches.Add(match);
     //    await _context.SaveChangesAsync();
     //    return new ServiceResponse<Match> { Data = match };
     //}
-
-    //public async Task<ServiceResponse<bool>> DeleteMatch(int matchId)
-    //{
-    //    var dbMatch = await _context.Matches.FindAsync(matchId);
-    //    if (dbMatch == null)
-    //    {
-    //        return new ServiceResponse<bool>
-    //        {
-    //            Success = false,
-    //            Data = false,
-    //            Message = "Match not found."
-    //        };
-    //    }
-
-    //    dbMatch.Deleted = true;
-
-    //    await _context.SaveChangesAsync();
-    //    return new ServiceResponse<bool> { Data = true };
-    //}
-
     //public async Task<ServiceResponse<Match>> GetMatch(int matchId)
     //{
     //    var response = new ServiceResponse<Match>();
@@ -77,7 +73,6 @@ public class MatchService : GenericService<Match>, IMatchService
     //    response.Data = match;
     //    return response;
     //}
-
     //public async Task<ServiceResponse<List<Match>>> GetMatches()
     //{
     //    //var matches = await _context.Matches.ToListAsync();
@@ -85,16 +80,15 @@ public class MatchService : GenericService<Match>, IMatchService
     //    //{
     //    //    Data = matches
     //    //};
-
     //    var response = new ServiceResponse<List<Match>>
     //    {
     //        Data = await _context.Matches
     //        .Where(x => x.Deleted == false)
     //        .ToListAsync()
     //    };
-
     //    return response;
     //}
+    #endregion
 }
 
 

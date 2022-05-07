@@ -1,14 +1,13 @@
 ﻿@page "/history"
 @inject IMatchService MatchService
 
-
 @if (MatchService.Matches == null || MatchService.Matches.Count == 0)
 {
     <span>Loading all matches...</span>
 }
 else
 {
-    <ListMatchComponent Matches="@MatchService.Matches" Context="match">
+    <ListMatchComponent Matches="@MatchList" Context="match">
         <TableHeader>
             <th>ID</th>
             <th>Winner</th>
@@ -26,13 +25,36 @@ else
 }
 
 @code {
+
+    [Parameter]
+    public EventCallback<List<Match>> ResetList { get; set; }
+    private List<Match> MatchList = new List<Match>();
+
     protected override async Task OnInitializedAsync()
     {
         await MatchService.GetMatches();
+        GenerateMatchList();
+    }
+
+    List<Match> GenerateMatchList()
+    {
+        var list = MatchService.Matches;
+        MatchList = list
+        .Where(x => x.Deleted == false)
+        .ToList();
+        return MatchList;
     }
 
     async void DeleteMatch(Match match)
     {
         await MatchService.DeleteMatch(match);
+        ResetBattle();
     }
+
+    async void ResetBattle()
+    {
+        MatchList = new List<Match>();
+        await ResetList.InvokeAsync(GenerateMatchList());
+    }
+
 }

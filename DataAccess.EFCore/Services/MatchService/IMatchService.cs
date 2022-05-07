@@ -6,14 +6,19 @@ namespace DataAccess.EFCore.Services.MatchService;
 
 public interface IMatchService : IGenericService<Match>
 {
+    /// <summary>
+    /// Metod för att hämta alla matcher via specifikt hamster id
+    /// </summary>
+    /// <returns>En komplett lista med alla matcher där hamster id förekommer</returns>
     Task<ServiceResponse<List<Match>>> GetAllHamsterMatches(int hamsterId);
-    
+    /// <summary>
+    /// Hämtar alla matcher
+    /// </summary>
+    /// <returns></returns>
     Task<ServiceResponse<List<Match>>> GetAll(); // GET /matches
-    
-    
-    //Task<ServiceResponse<List<Match>>> GetMatches(); // GET /matches
-    //Task<ServiceResponse<Match>> GetMatch(int matchId); // GET /matches/id
-    //Task<ServiceResponse<Match>> CreateMatch(Match match); // POST /matches
-    //Task<ServiceResponse<bool>> DeleteMatch(int matchId); // DELETE /matches/id
+    /// <summary>
+    /// Tar bort match med id
+    /// </summary>
+    Task<ServiceResponse<bool>> Delete(int matchId); // DELETE /matches/id
 
 }

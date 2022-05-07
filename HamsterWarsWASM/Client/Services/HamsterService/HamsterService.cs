@@ -28,15 +28,6 @@ public class HamsterService : IHamsterService
         var result = await _http.DeleteAsync($"api/hamster/{hamster.Id}");
     }
 
-    public async Task Get2ShuffledHamsters()
-    {
-        var result = await _http.GetFromJsonAsync<ServiceResponse<List<Hamster>>>("api/battle");
-        if (result != null && result.Data != null) // "Deleted" hamster sorteras bort vid razor.page --bör ses över
-        {
-            Hamsters = result.Data;
-        }
-    }
-
     public async Task<ServiceResponse<Hamster>> GetHamster(int hamsterId)
     {
         var result =

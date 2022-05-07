@@ -7,7 +7,7 @@
     <tbody>
         @foreach (var match in Matches)
         {
-            if (RowTemplate is not null)
+            if (RowTemplate is not null && match.Deleted == false)
             {
                 <tr>@RowTemplate(match)</tr>
                 @ChildContent

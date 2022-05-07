@@ -14,16 +14,10 @@ public class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //modelBuilder.Entity<Hamster>()
-        //    .HasOne(m => m.Match)
-        //    .WithMany(h => h.Hamsters)
-        //    .HasForeignKey(c => c.Match);
-
         modelBuilder.Entity<Match>()
             .HasMany(c => c.Hamsters)
             .WithOne(e => e.Match);
-
-
+        
         modelBuilder.Entity<Hamster>().HasData(
         // Tack Rasmus för alla hamstrar.
         #region AddHamstrar

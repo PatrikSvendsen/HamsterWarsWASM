@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HamsterWarsWASM.Shared.Entities;
 
+/// <summary>
+/// Class för modelen Hamster
+/// </summary>
 public class Hamster
 {
     [Key]

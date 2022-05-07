@@ -7,12 +7,8 @@ namespace DataAccess.EFCore.Services.HamsterService;
 
 public class HamsterService : GenericService<Hamster>, IHamsterService
 {
-    //private readonly DataContext _context;
-    private static readonly Random rnd = new Random();
-
     public HamsterService(DataContext context) : base(context)
     {
-        //_context = context;
     }
 
     public override async Task<ServiceResponse<bool>> Delete(int hamsterId) // Bättre att inte ta bort hamster helt. Ha dem kvar men "osynliga".
@@ -30,9 +26,7 @@ public class HamsterService : GenericService<Hamster>, IHamsterService
         }
 
         dbHamster.Deleted = true;
-
         await _context.SaveChangesAsync();
-
         return new ServiceResponse<bool> { Data = true };
     }
 
@@ -63,32 +57,7 @@ public class HamsterService : GenericService<Hamster>, IHamsterService
         return new ServiceResponse<Hamster> { Data = hamster };
     }
 
-    public async Task<ServiceResponse<List<Hamster>>> ShuffleRandomHamsters()
-    {
-        int n = _context.Hamsters.Count();
-        var list = await _context.Hamsters.ToListAsync();
-
-        // Plockat från Stackoverflow/google --https://blog.codinghorror.com/shuffling/
-        while (n > 1)
-        {
-            int k = (rnd.Next(0, n) % n);
-            n--;
-            Hamster value = list[k];
-            list[k] = list[n];
-            list[n] = value;
-        }
-
-        var response = new ServiceResponse<List<Hamster>>
-        {
-            Data = list
-            .Where(x => x.Deleted == false)
-            .Take(2)
-            .ToList()
-        };
-
-        return response;
-    }
-
+    #region Förarkivetochframtiden
     //public async Task<ServiceResponse<Hamster>> CreateHamster(Hamster hamster)
     //{
     //    _context.Hamsters.Add(hamster);
@@ -120,5 +89,6 @@ public class HamsterService : GenericService<Hamster>, IHamsterService
     //    };
     //    return response;
     //}
+    #endregion
 }
 

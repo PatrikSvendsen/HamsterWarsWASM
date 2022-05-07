@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HamsterWarsWASM.Shared.Entities;
 
+/// <summary>
+/// Class for modelen Match
+/// </summary>
 public class Match
 {
     [Key]

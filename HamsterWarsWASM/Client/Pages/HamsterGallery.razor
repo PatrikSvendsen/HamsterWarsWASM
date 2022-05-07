@@ -2,8 +2,6 @@
 @using HamsterWarsWASM.Shared.Service
 @inject IHamsterService HamsterService
 @inject NavigationManager NavigationManager
-@implements IDisposable
-
 
 @if (HamsterService.Hamsters == null || HamsterService.Hamsters.Count == 0)
 {
@@ -33,8 +31,6 @@ else
     </WrapperContainerBattleComponent>
 }
 @code {
-    private bool overlayVisible;
-    private bool editMode;
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,10 +45,5 @@ else
     void EditHamster(int hamsterId)
     {
         NavigationManager.NavigateTo($"edit/{hamsterId}");
-    }
-
-    public void Dispose()
-    {
-        HamsterService.HamstersChanged -= StateHasChanged;
     }
 }

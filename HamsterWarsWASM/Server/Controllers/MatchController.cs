@@ -12,14 +12,21 @@ public class MatchController : ControllerBase
     {
         _matchService = matchService;
     }
-
+    /// <summary>
+    /// API för att hämta alla matcher
+    /// </summary>
+    /// <returns>Komplett lista med alla matcher</returns>
     [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<Match>>>> GetMatches()
     {
         var result = await _matchService.GetAll();
         return Ok(result);
     }
-
+    /// <summary>
+    /// API för att hämta specifik match med Id
+    /// </summary>
+    /// <param name="matchId">Specifikt match id</param>
+    /// <returns>Ett objekt av input id</returns>
     [HttpGet]
     [Route("{matchId}")]
     public async Task<ActionResult<ServiceResponse<Match>>> GetMatch(int matchId)
@@ -27,14 +34,22 @@ public class MatchController : ControllerBase
         var result = await _matchService.GetById(matchId);
         return Ok(result);
     }
-
+    /// <summary>
+    /// API för att skapa en match 
+    /// </summary>
+    /// <param name="matchId">Specifikt match id</param>
+    /// <returns>Returnerar 200 OK om det lyckas.</returns>
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<Match>>> CreateMatch(Match match)
     {
         var result = await _matchService.Insert(match);
         return Ok(result);
     }
-
+    /// <summary>
+    /// API för att ta bort specific match via Id
+    /// </summary>
+    /// <param name="matchId">Specifikt match id</param>
+    /// <returns>Returnerar 200 OK vid lyckat försök.</returns>
     [HttpDelete]
     [Route("{matchId}")]
     public async Task<ActionResult<ServiceResponse<bool>>> DeleteMatch(int matchId)
@@ -43,6 +58,11 @@ public class MatchController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>
+    /// Hämtar alla matcher där input {hamsterId} matchar WinnerId eller LoserId i någon match.
+    /// </summary>
+    /// <param name="hamsterId">Specifikt hamster id</param>
+    /// <returns>Returnerar 200 OK och en lista med alla matchande matcher.</returns>
     [HttpGet("matchwinners/{hamsterId}")]
     public async Task<ActionResult<ServiceResponse<List<Match>>>> GetAllHamsterMatches(int hamsterId)
     {

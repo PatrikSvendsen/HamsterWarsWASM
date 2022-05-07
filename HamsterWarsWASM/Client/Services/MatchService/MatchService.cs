@@ -11,6 +11,8 @@ public class MatchService : IMatchService
 
     public List<Match> Matches { get; set; }
 
+    public event Action OnChange;
+
     public async Task<Match> CreateMatch(Match match)
     {
         var result = await _http.PostAsJsonAsync("api/match", match);
