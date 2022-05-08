@@ -33,16 +33,6 @@ public class HamsterController : ControllerBase
         var result = await _hamsterService.GetById(hamsterId);
         return Ok(result);
     }
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    ///// <returns></returns>
-    //[HttpGet("battle")]
-    //public async Task<ActionResult<ServiceResponse<List<Hamster>>>> Get2ShuffledHamsters()
-    //{
-    //    var result = await _hamsterService.ShuffleRandomHamsters();
-    //    return Ok(result);
-    //}
     /// <summary>
     /// API som tar emot ett hamster objekt och skickar det vidare till service lagret. 
     /// </summary>
@@ -76,6 +66,4 @@ public class HamsterController : ControllerBase
         var result = await _hamsterService.Delete(hamsterId);
         return Ok(result);
     }
-
-
 }

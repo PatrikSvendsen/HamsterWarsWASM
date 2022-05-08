@@ -13,6 +13,7 @@ public class HamsterService : GenericService<Hamster>, IHamsterService
 
     public override async Task<ServiceResponse<bool>> Delete(int hamsterId)
     {
+        var hamster = new Hamster();
         var dbHamster = await _context.Hamsters.FindAsync(hamsterId);
         if (dbHamster == null)
         {
@@ -23,7 +24,7 @@ public class HamsterService : GenericService<Hamster>, IHamsterService
                 Message = "Hamster not found."
             };
         }
-
+       
         dbHamster.Deleted = true;
         await _context.SaveChangesAsync();
         return new ServiceResponse<bool> { Data = true };

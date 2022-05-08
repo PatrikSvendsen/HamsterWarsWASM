@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HamsterWarsWASM.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220507205954_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220508065050_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

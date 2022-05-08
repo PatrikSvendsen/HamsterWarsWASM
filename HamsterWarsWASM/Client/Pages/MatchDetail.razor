@@ -34,6 +34,7 @@ else
 @code {
     private Match? match = null;
     private string message = string.Empty;
+    private Hamster? hamster = new Hamster();
     private Hamster? winningHamster = new Hamster();
     private Hamster? defeatedHamster = new Hamster();
 
@@ -57,16 +58,22 @@ else
         else
         {
             match = result.Data;
-            MatchHamsters();
+            winningHamster = GetHamsterForParameter(match.WinnerId);
+            defeatedHamster = GetHamsterForParameter(match.LoserId);
         }
     }
 
-    void MatchHamsters()
+    Hamster GetHamsterForParameter(int hamsterId)
     {
         var result = HamsterService.Hamsters;
-        winningHamster = result.Find(x => x.Id == match.WinnerId);
-        defeatedHamster = result.Find(x => x.Id == match.LoserId);
+        hamster = result.Find(x => x.Id == hamsterId);
+        if (hamster.Deleted == true)
+        {
+            hamster.Name = "This hamster have been removed";
+        }
+        return hamster;
     }
+
 
     async void DeleteMatch()
     {

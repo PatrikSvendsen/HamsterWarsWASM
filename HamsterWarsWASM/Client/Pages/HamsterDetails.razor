@@ -70,7 +70,19 @@ else
         {
             message = result.Message;
         }
-        hamster = result.Data;
+        else if(result.Data.Deleted == true)
+        {
+            hamster = result.Data;
+            hamster.Name = "Hamster has been deleted";
+            hamster.Age = 0;
+            hamster.Loves = "Points remains to keep everyone happy";
+            hamster.FavFood = "Not much to see here!";
+            hamster.ImgName = string.Empty;
+        }
+        if (result.Success)
+        {
+            hamster = result.Data;
+        }
     }
     void EditHamster(int hamsterId)
     {

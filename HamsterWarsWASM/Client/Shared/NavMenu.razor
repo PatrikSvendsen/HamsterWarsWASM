@@ -1,35 +1,20 @@
-﻿@*    <header id="header" class="fixed-top d-flex align-items-center header-transparent">*@
-        <div class="container d-flex justify-content-between align-items-center">
+﻿<div class="container d-flex justify-content-between align-items-center">
 
-            <div id="logo">
-                @*<a href=""><img src="images/spinninghamster.gif" class="img-logo" alt=""></a>*@
-                <!-- Uncomment below if you prefer to use a text logo -->
-                <!--<h1><a href="index.html">Regna</a></h1>-->
-            </div>
+    <div id="logo">
+    </div>
 
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="nav-link scrollto" href="">Home</a></li>
-                    <li><a class="nav-link scrollto" href="battle">Battle</a></li>
-                    <li><a class="nav-link scrollto" href="gallery">Gallery</a></li>
-                    <li><a class="nav-link scrollto" href="statistics">Statistic</a></li>
-                    <li><a class="nav-link scrollto" href="history">History</a></li>
-                    <li><a class="nav-link scrollto" href="swagger/index.html">Swagger</a></li>
-                </ul>
-            </nav>
-       </div>
-
-    @* header>*@
+    <nav id="navbar" class="navbar">
+        <ul>
+            <li><a class="nav-link scrollto" href="">Home</a></li>
+            <li><a class="nav-link scrollto" href="battle">Battle</a></li>
+            <li><a class="nav-link scrollto" href="gallery">Gallery</a></li>
+            <li><a class="nav-link scrollto" href="statistics">Statistic</a></li>
+            <li><a class="nav-link scrollto" href="history">History</a></li>
+            <li><a class="nav-link scrollto" href="swagger/index.html">Swagger</a></li>
+        </ul>
+    </nav>
+</div>
 
 @code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-
 
 }
